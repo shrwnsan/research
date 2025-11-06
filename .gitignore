@@ -1,0 +1,27 @@
+# Jekyll
+.jekyll-cache/
+.sass-cache/
+_site/
+.jekyll-metadata
+
+# Ruby
+*.gem
+.bundle/
+ Gemfile.lock
+vendor/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Temporary files
+*.tmp
+*.bak
+*~

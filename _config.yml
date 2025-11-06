@@ -1,0 +1,43 @@
+# Site settings
+title: Research: Agentic Augmentation
+description: Technical research and analysis powered by AI tools
+baseurl: "/research"
+url: "https://shrwnsan.github.io"
+
+# Theme
+remote_theme: mmistakes/so-simple-theme@3.2.0
+skin: "/assets/css/skins/dark.css"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Include CSS files
+include:
+  - _pages
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - docker-compose.yml
