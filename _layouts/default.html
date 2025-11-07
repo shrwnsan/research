@@ -27,5 +27,28 @@
     <label for="sidebar-checkbox" class="sidebar-toggle"></label>
 
     <script src='{{ site.baseurl }}/public/js/script.js'></script>
+
+    <!-- Initialize Mermaid diagrams -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#f3f9ff',
+            primaryTextColor: '#0d47a1',
+            primaryBorderColor: '#2196f3',
+            lineColor: '#42a5f5',
+            secondaryColor: '#f8fff8',
+            tertiaryColor: '#fff'
+          },
+          flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis'
+          }
+        });
+      });
+    </script>
   </body>
 </html>
