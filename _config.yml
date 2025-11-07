@@ -3,7 +3,7 @@ title:            "Research: Agentic Augmentation"
 description:      "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation."
 url:              "https://shrwnsan.github.io"
 baseurl:          "/research"
-permalink:        pretty
+permalink:        /:slug/
 
 # About/contact
 author:

@@ -2,6 +2,7 @@
 layout: post
 title: "Agentic Augmentation: A New Paradigm for AI-Human Collaboration"
 date: 2025-11-05
+slug: ai-human-collaboration
 excerpt: "Exploring how autonomous AI agents work alongside human researchers to enhance analytical capabilities and accelerate discovery through proactive, context-aware collaboration."
 ---
 
