@@ -43,17 +43,17 @@ test_home = {
 
 def generate_json_ld(page, site, content = '')
   # Simulate Jekyll's absolute_url filter
-  def self.absolute_url(url, site)
+  def absolute_url(url, site)
     "#{site['url']}#{site['baseurl']}#{url}"
   end
 
   # Simulate Jekyll's jsonify filter
-  def self.jsonify(obj)
+  def jsonify(obj)
     obj.to_json
   end
 
   # Simulate Jekyll's date filters
-  def self.date_to_xmlschema(time)
+  def date_to_xmlschema(time)
     time.strftime('%Y-%m-%dT%H:%M:%S%z')
   end
 
@@ -66,8 +66,8 @@ def generate_json_ld(page, site, content = '')
   # Website schema
   json_ld['@graph'] << {
     '@type' => 'WebSite',
-    '@id' => "#{self.absolute_url('/', site)}#website",
-    'url' => self.absolute_url('/', site),
+    '@id' => "#{absolute_url('/', site)}#website",
+    'url' => absolute_url('/', site),
     'name' => site['title'],
     'description' => site['description'],
     'inLanguage' => 'en-US',
@@ -77,12 +77,12 @@ def generate_json_ld(page, site, content = '')
   # Organization schema
   json_ld['@graph'] << {
     '@type' => 'Organization',
-    '@id' => "#{self.absolute_url('/', site)}#organization",
+    '@id' => "#{absolute_url('/', site)}#organization",
     'name' => site['title'],
-    'url' => self.absolute_url('/', site),
+    'url' => absolute_url('/', site),
     'logo' => {
       '@type' => 'ImageObject',
-      'url' => self.absolute_url('/apple-touch-icon-precomposed.png', site),
+      'url' => absolute_url('/apple-touch-icon-precomposed.png', site),
       'width' => 144,
       'height' => 144
     },
@@ -94,14 +94,14 @@ def generate_json_ld(page, site, content = '')
     # BlogPosting schema
     json_ld['@graph'] << {
       '@type' => 'BlogPosting',
-      '@id' => "#{absolute_url(page['url'])}#blogposting",
+      '@id' => "#{absolute_url(page['url'], site)}#blogposting",
       'mainEntityOfPage' => {
         '@type' => 'WebPage',
-        '@id' => absolute_url(page['url'])
+        '@id' => absolute_url(page['url'], site)
       },
       'headline' => page['title'],
       'description' => page['excerpt'],
-      'image' => [absolute_url('/apple-touch-icon-precomposed.png')],
+      'image' => [absolute_url('/apple-touch-icon-precomposed.png', site)],
       'datePublished' => date_to_xmlschema(page['date']),
       'dateModified' => date_to_xmlschema(page['date']),
       'author' => {
@@ -110,7 +110,7 @@ def generate_json_ld(page, site, content = '')
       },
       'publisher' => {
         '@type' => 'Organization',
-        '@id' => "#{absolute_url('/')}#organization",
+        '@id' => "#{absolute_url('/', site)}#organization",
         'name' => site['title']
       },
       'wordCount' => content.split.length,
@@ -120,25 +120,25 @@ def generate_json_ld(page, site, content = '')
     # BreadcrumbList for blog posts
     json_ld['@graph'] << {
       '@type' => 'BreadcrumbList',
-      '@id' => "#{absolute_url(page['url'])}#breadcrumb",
+      '@id' => "#{absolute_url(page['url'], site)}#breadcrumb",
       'itemListElement' => [
         {
           '@type' => 'ListItem',
           'position' => 1,
           'name' => 'Home',
-          'item' => absolute_url('/')
+          'item' => absolute_url('/', site)
         },
         {
           '@type' => 'ListItem',
           'position' => 2,
           'name' => 'Blog',
-          'item' => absolute_url('/')
+          'item' => absolute_url('/', site)
         },
         {
           '@type' => 'ListItem',
           'position' => 3,
           'name' => page['title'],
-          'item' => absolute_url(page['url'])
+          'item' => absolute_url(page['url'], site)
         }
       ]
     }
@@ -146,13 +146,13 @@ def generate_json_ld(page, site, content = '')
     # WebPage schema
     json_ld['@graph'] << {
       '@type' => 'WebPage',
-      '@id' => "#{absolute_url(page['url'])}#webpage",
-      'url' => absolute_url(page['url']),
+      '@id' => "#{absolute_url(page['url'], site)}#webpage",
+      'url' => absolute_url(page['url'], site),
       'name' => page['title'],
       'description' => page['title'] == 'Home' ? site['description'] : "#{page['title']} - #{site['title']}",
       'isPartOf' => {
         '@type' => 'WebSite',
-        '@id' => "#{absolute_url('/')}#website"
+        '@id' => "#{absolute_url('/', site)}#website"
       },
       'inLanguage' => 'en-US'
     }
@@ -160,19 +160,19 @@ def generate_json_ld(page, site, content = '')
     # BreadcrumbList for static pages
     json_ld['@graph'] << {
       '@type' => 'BreadcrumbList',
-      '@id' => "#{absolute_url(page['url'])}#breadcrumb",
+      '@id' => "#{absolute_url(page['url'], site)}#breadcrumb",
       'itemListElement' => [
         {
           '@type' => 'ListItem',
           'position' => 1,
           'name' => 'Home',
-          'item' => absolute_url('/')
+          'item' => absolute_url('/', site)
         },
         {
           '@type' => 'ListItem',
           'position' => 2,
           'name' => page['title'],
-          'item' => absolute_url(page['url'])
+          'item' => absolute_url(page['url'], site)
         }
       ]
     }
