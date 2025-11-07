@@ -4,6 +4,28 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
+  <!-- SEO Meta Description -->
+  {% assign meta_description = '' %}
+
+  {% if page.description %}
+    {% assign meta_description = page.description %}
+  {% elsif page.excerpt %}
+    {% assign meta_description = page.excerpt | strip_html | strip | truncate: 160 %}
+  {% elsif page.content %}
+    {% assign meta_description = page.content | strip_html | strip | truncate: 160 %}
+  {% else %}
+    {% if page.title == "Home" %}
+      {% assign meta_description = site.description %}
+    {% elsif page.title %}
+      {% assign meta_description = page.title | append: " - " | append: site.description %}
+    {% else %}
+      {% assign meta_description = site.description %}
+    {% endif %}
+  {% endif %}
+
+  <meta name="description" content="{{ meta_description }}">
+
+  <!-- SEO Title -->
   <title>
     {% if page.title == "Home" %}
       {{ site.title }} &middot; {{ site.tagline }}
@@ -25,6 +47,96 @@
   <link rel="shortcut icon" href="{{ '/favicon.ico' | relative_url }}">
 
   <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ '/atom.xml' | relative_url }}">
+
+  <!-- Open Graph & Twitter Cards for Social Sharing -->
+  {% assign social_title = '' %}
+  {% assign social_description = meta_description %}
+  {% assign social_image = '' %}
+  {% assign social_image_alt = '' %}
+  {% assign social_type = 'website' %}
+  {% assign twitter_card_type = 'summary_large_image' %}
+
+  <!-- Set title for social sharing -->
+  {% if page.title %}
+    {% if page.title == "Home" %}
+      {% assign social_title = site.title %}
+    {% else %}
+      {% assign social_title = page.title | append: " - " | append: site.title %}
+    {% endif %}
+  {% else %}
+    {% assign social_title = site.title %}
+  {% endif %}
+
+  <!-- Set image for social sharing -->
+  {% if page.social_image %}
+    {% assign social_image = page.social_image | absolute_url %}
+  {% elsif page.image %}
+    {% assign social_image = page.image | absolute_url %}
+  {% elsif site.social_image %}
+    {% assign social_image = site.social_image | absolute_url %}
+  {% else %}
+    {% assign social_image = '/apple-touch-icon-precomposed.png' | absolute_url %}
+  {% endif %}
+
+  <!-- Set image alt text -->
+  {% if page.social_image_alt %}
+    {% assign social_image_alt = page.social_image_alt %}
+  {% elsif page.image_alt %}
+    {% assign social_image_alt = page.image_alt %}
+  {% else %}
+    {% assign social_image_alt = social_title %}
+  {% endif %}
+
+  <!-- Set content type and Twitter card type -->
+  {% if page.layout == 'post' %}
+    {% assign social_type = 'article' %}
+  {% elsif page.twitter_card %}
+    {% assign twitter_card_type = page.twitter_card %}
+  {% endif %}
+
+  <!-- Facebook App ID for insights -->
+  {% if site.facebook_app_id %}
+  <meta property="fb:app_id" content="{{ site.facebook_app_id }}">
+  {% endif %}
+
+  <!-- Open Graph meta tags -->
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ social_title }}">
+  <meta property="og:description" content="{{ social_description }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="{{ social_type }}">
+  <meta property="og:image" content="{{ social_image }}">
+  <meta property="og:image:alt" content="{{ social_image_alt }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Article-specific Open Graph tags -->
+  {% if page.layout == 'post' %}
+    <meta property="article:author" content="{{ site.author.name }}">
+    <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+    {% if page.category %}
+      <meta property="article:section" content="{{ page.category }}">
+    {% endif %}
+    {% for tag in page.tags %}
+      <meta property="article:tag" content="{{ tag }}">
+    {% endfor %}
+  {% endif %}
+
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="{{ twitter_card_type }}">
+  <meta name="twitter:site" content="{{ site.twitter_username | default: '@' }}">
+  <meta name="twitter:creator" content="{{ page.author_twitter | default: site.author.twitter | default: '@' }}">
+  <meta name="twitter:title" content="{{ social_title }}">
+  <meta name="twitter:description" content="{{ social_description }}">
+  <meta name="twitter:image" content="{{ social_image }}">
+  <meta name="twitter:image:alt" content="{{ social_image_alt }}">
+
+  <!-- Additional social meta tags -->
+  <meta name="author" content="{{ page.author | default: site.author.name }}">
+
+  <!-- Comprehensive JSON-LD structured data for search engines -->
+  {% include structured-data.html %}
 
   <!-- Mermaid.js for diagram rendering -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>

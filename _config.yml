@@ -1,5 +1,6 @@
 # Setup
 title:            "Research: Agentic Augmentation"
+tagline:          "AI-Powered Research and Analysis"
 description:      "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation."
 url:              "https://shrwnsan.github.io"
 baseurl:          "/research"
@@ -10,11 +11,38 @@ author:
   name:           "Research Team"
   url:            ""
   email:          ""
+  twitter:        ""
+
+# Social media settings
+twitter_username:            ""  # Your Twitter username without @
+social_image:                "/apple-touch-icon-precomposed.png"  # Default social sharing image (1200x630px recommended)
+facebook_app_id:             ""  # Facebook App ID for insights
+social_logo:                 "/apple-touch-icon-precomposed.png"  # Logo for structured data
+
+# Front matter defaults
+defaults:
+  # Default values for posts
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      description: ""
+      excerpt_separator: "---"
+
+  # Default values for pages
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      description: ""
 
 # Gems
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-seo-tag
 
 # Custom vars
 version:           1.1.0

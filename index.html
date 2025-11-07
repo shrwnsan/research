@@ -1,16 +1,17 @@
 ---
 layout: default
 title: Home
+description: "AI-powered research blog exploring agentic systems, human-AI collaboration, and technical analysis of cutting-edge AI tools and platforms."
 ---
 
 <div class="posts">
   {% for post in site.posts %}
   <div class="post">
-    <h1 class="post-title">
+    <h2 class="post-title">
       <a href="{{ post.url | relative_url }}">
         {{ post.title }}
       </a>
-    </h1>
+    </h2>
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
 
