@@ -32,22 +32,67 @@
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         mermaid.initialize({
-          startOnLoad: true,
-          theme: 'default',
+          startOnLoad: false,
+          theme: 'base',
           themeVariables: {
-            primaryColor: '#f3f9ff',
-            primaryTextColor: '#0d47a1',
-            primaryBorderColor: '#2196f3',
+            // Flowchart colors
+            primaryColor: '#e3f2fd',
+            primaryTextColor: '#1565c0',
+            primaryBorderColor: '#1976d2',
             lineColor: '#42a5f5',
-            secondaryColor: '#f8fff8',
-            tertiaryColor: '#fff'
+            secondaryColor: '#f3e5f5',
+            secondaryTextColor: '#7b1fa2',
+            tertiaryColor: '#fff',
+            // Gantt chart colors
+            taskBackground: '#e8f5e8',
+            taskTextColor: '#2e7d32',
+            taskBorderColor: '#4caf50',
+            taskDoneBackground: '#c8e6c9',
+            gridColor: '#e0e0e0',
+            // XYChart colors
+            xyChart: {
+              backgroundColor: '#fafafa',
+              titleColor: '#424242',
+              lineColors: ['#1976d2', '#d32f2f', '#388e3c', '#f57c00'],
+              axisColor: '#616161',
+              tickColor: '#9e9e9e'
+            }
           },
           flowchart: {
             useMaxWidth: true,
             htmlLabels: true,
             curve: 'basis'
+          },
+          gantt: {
+            titleTopMargin: 25,
+            barHeight: 20,
+            fontSize: 11,
+            fontFamily: '"Open Sans", sans-serif',
+            sectionBkgColor: '#fafafa',
+            altSectionBkgColor: '#f5f5f5',
+            gridColor: '#e0e0e0',
+            darkMode: false,
+            scale: 0.9
           }
         });
+
+        // Find and render all Mermaid code blocks
+        const mermaidElements = document.querySelectorAll('code.language-mermaid');
+        mermaidElements.forEach(function(element) {
+          const code = element.textContent.trim();
+          const parent = element.parentElement;
+
+          // Create a div for the Mermaid diagram
+          const mermaidDiv = document.createElement('div');
+          mermaidDiv.className = 'mermaid';
+          mermaidDiv.textContent = code;
+
+          // Replace the pre/code block with the mermaid div
+          parent.replaceWith(mermaidDiv);
+        });
+
+        // Render all Mermaid diagrams
+        mermaid.init();
       });
     </script>
   </body>
