@@ -20,7 +20,7 @@ Supports multiple page types: BlogPosting, WebSite, WebPage, BreadcrumbList, Org
         "@type": "SearchAction",
         "target": {
           "@type": "EntryPoint",
-          "urlTemplate": {{ site.url | append: site.baseurl | append: "/search?q={search_term_string}" | jsonify }}
+          "urlTemplate": "{{ site.url }}{{ site.baseurl }}/search?q={search_term_string}"
         },
         "query-input": "required name=search_term_string"
       },
