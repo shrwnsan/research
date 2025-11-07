@@ -57,13 +57,9 @@ bundle install
 bundle exec jekyll serve
 ```
 
-## Typography
-
-The site uses Roboto Slab font family with multiple weights (100-900) to create clear visual hierarchy, inspired by the Stack Overflow Developer Survey design.
-
 ## License
 
-© 2025 [Your Name]. Content generated with AI assistance as noted in individual articles.
+This work is licensed under a Creative Commons Attribution 4.0 International License. Content generated with AI assistance as noted in individual articles.
 
 ---
 

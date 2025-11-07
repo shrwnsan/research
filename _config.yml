@@ -1,31 +1,28 @@
-# Site settings
-title: Research: Agentic Augmentation
-description: Technical research and analysis powered by AI tools
-baseurl: "/research"
-url: "https://shrwnsan.github.io"
+# Setup
+title:            "Research: Agentic Augmentation"
+description:      "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation."
+url:              "https://shrwnsan.github.io"
+baseurl:          "/research"
+permalink:        pretty
 
-# Theme
-remote_theme: mmistakes/so-simple-theme@3.2.0
-skin: "/assets/css/skins/dark.css"
+# About/contact
+author:
+  name:           "Research Team"
+  url:            ""
+  email:          ""
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-
-# Collections
-collections:
-  posts:
-    output: true
-    permalink: /:categories/:year/:month/:day/:title/
-
-# Plugins
+# Gems
 plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# Include CSS files
-include:
-  - _pages
+# Custom vars
+version:           1.1.0
+google_analytics_id:
+
+# Build settings
+markdown:          kramdown
+highlighter:       rouge
 
 # Exclude from processing
 exclude:
@@ -41,3 +38,4 @@ exclude:
   - vendor/ruby/
   - README.md
   - docker-compose.yml
+  - _docs
