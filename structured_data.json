@@ -1,0 +1,96 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [{
+      "@type": "WebSite",
+      "@id": "http://0.0.0.0:4000/research/#website",
+      "url": "http://0.0.0.0:4000/research",
+      "name": "Research: Agentic Augmentation",
+      "description": "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation.",
+      "inLanguage": "en-US",
+      "isFamilyFriendly": "true",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "http://0.0.0.0:4000/research/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@id": "http://0.0.0.0:4000/research/#organization"
+      }
+    },{
+      "@type": "Organization",
+      "@id": "http://0.0.0.0:4000/research/#organization",
+      "name": "Research: Agentic Augmentation",
+      "url": "http://0.0.0.0:4000/research",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "http://0.0.0.0:4000/research/apple-touch-icon-precomposed.png",
+        "width": 144,
+        "height": 144
+      },
+      "description": "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation.",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "research",
+        "availableLanguage": "English"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "http://0.0.0.0:4000/research/#homepage",
+      "url": "http://0.0.0.0:4000/research/",
+      "name": "Research: Agentic Augmentation",
+      "description": "Technical research and analysis powered by AI tools focused on agentic systems and AI augmentation.",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "http://0.0.0.0:4000/research/#website"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "AI Research",
+        "description": "Technical research focused on agentic systems and AI augmentation"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 2,
+        "itemListElement": [{
+            "@type": "Article",
+            "position": 1,
+            "name": "Conductor - Comprehensive Analysis & Review",
+            "url": "http://0.0.0.0:4000/research/ai-conductor-analysis/",
+            "datePublished": "2025-11-06T00:00:00-06:00",
+            "description": "Analysis of Conductor orchestration platform for multi-agent AI development with git worktrees, visual dashboard, and 3-4x productivity boost"
+          },{
+            "@type": "Article",
+            "position": 2,
+            "name": "Agentic Augmentation: A New Paradigm for AI-Human Collaboration",
+            "url": "http://0.0.0.0:4000/research/ai-human-collaboration/",
+            "datePublished": "2025-11-05T00:00:00-06:00",
+            "description": "Exploring how autonomous AI agents work alongside human researchers to enhance analytical capabilities and accelerate discovery through proactive, context-aware collaboration."
+          }]
+      }
+    },
+    {
+      "@type": "DataFeed",
+      "@id": "http://0.0.0.0:4000/research/#feed",
+      "name": "Research: Agentic Augmentation - RSS Feed",
+      "description": "Latest research articles and analysis from Research: Agentic Augmentation",
+      "dataFeedElement": [
+        {
+          "@type": "DataFeedItem",
+          "dateModified": "2025-11-09T13:40:00-06:00",
+          "item": {
+            "@type": "WebPage",
+            "@id": "http://0.0.0.0:4000/research/#website"
+          }
+        }
+      ],
+      "provider": {
+        "@type": "Organization",
+        "@id": "http://0.0.0.0:4000/research/#organization"
+      }
+    }]
+}
