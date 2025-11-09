@@ -95,6 +95,23 @@ The site is automatically deployed via GitHub Pages when pushing to the `main` b
 - **GitHub Pages**: Hosting and deployment
 - **Markdown**: Content authoring
 
+## 📝 Contribution Policy
+
+This repository maintains a **closed contribution model** to ensure focused development:
+
+- **✅ Issues**: Open for feedback, bug reports, and suggestions
+- **❌ Pull Requests**: Closed automatically (maintainers only)
+
+### How to Contribute Ideas
+
+1. **Open an Issue**: Share suggestions, report bugs, or request features
+2. **Fork & Modify**: Use the code for your own projects
+3. **Star the Repo**: Show your appreciation if you find it useful
+
+### External Pull Requests
+
+Pull requests from external contributors are automatically closed with a polite explanation. This allows us to maintain a consistent development direction while still valuing community feedback through issues.
+
 ## License
 
 This work is licensed under a Creative Commons Attribution 4.0 International License.
