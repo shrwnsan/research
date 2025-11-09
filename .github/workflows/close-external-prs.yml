@@ -14,26 +14,13 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const body = `👋 Thanks for your interest in this repository!
-
-This repository does not accept external pull requests. The maintainers prefer to keep development focused on their specific roadmap and requirements.
-
-📝 **Alternative ways to contribute:**
-- Open an issue with suggestions or bug reports
-- Fork the repository for your own use
-- Star the repo if you find it useful!
-
-🔒 **Repository Policy**
-- Issues: ✅ Open (for feedback, bug reports, suggestions)
-- Pull Requests: ❌ Closed (maintainers only)
-
-Thanks for understanding!`;
+            const message = "👋 Thanks for your interest in this repository!\n\nThis repository does not accept external pull requests. The maintainers prefer to keep development focused on their specific roadmap and requirements.\n\n📝 **Alternative ways to contribute:**\n- Open an issue with suggestions or bug reports\n- Fork the repository for your own use\n- Star the repo if you find it useful!\n\n🔒 **Repository Policy**\n- Issues: ✅ Open (for feedback, bug reports, suggestions)\n- Pull Requests: ❌ Closed (maintainers only)\n\nThanks for understanding!";
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: body
+              body: message
             });
 
             await github.rest.pulls.update({
