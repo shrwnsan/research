@@ -95,6 +95,27 @@ The site is automatically deployed via GitHub Pages when pushing to the `main` b
 - **GitHub Pages**: Hosting and deployment
 - **Markdown**: Content authoring
 
+## 📝 Contribution Policy
+
+This is a **personal research repository** documenting AI-human collaborative studies:
+
+- **✅ Issues**: Open for feedback, questions, and discussions
+- **❌ Pull Requests**: Not accepting external contributions
+
+### Research Purpose
+
+This project explores agentic augmentation - how AI tools can serve as research partners in human-driven investigations. The repository maintains consistent research methodology and documentation standards to preserve the integrity of the research findings.
+
+### How to Engage
+
+1. **Open an Issue**: Ask questions, share insights, or suggest research directions
+2. **Fork & Adapt**: Use the research methodology for your own projects
+3. **Reference**: Cite or build upon these research approaches in your work
+
+### External Contributions
+
+This repository does not accept external pull requests to maintain focused research documentation and consistent methodological approaches. Community engagement is welcomed through issues and discussions.
+
 ## License
 
 This work is licensed under a Creative Commons Attribution 4.0 International License.
