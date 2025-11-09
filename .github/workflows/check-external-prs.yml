@@ -1,0 +1,56 @@
+name: Check External PRs
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  check-external-prs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Close external PRs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Get all open PRs
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+
+            // Filter external PRs and close them
+            for (const pr of prs.data) {
+              if (pr.head.repo.full_name !== context.repo.repo) {
+                console.log(`Closing external PR #${pr.number} from ${pr.head.repo.full_name}`);
+
+                const message = "👋 Thanks for your interest in this research repository!\n\nThis is a personal research repository documenting AI-human collaborative studies. The project does not accept external pull requests to maintain consistent research methodology and documentation standards.\n\n📝 **How to engage with this research:**\n- Open an issue with questions or research insights\n- Fork the repository to adapt the methodology\n- Reference these approaches in your own research\n- Star the repo if you find the research useful!\n\n🔍 **Research Policy**\n- Issues: ✅ Open (for questions, insights, discussions)\n- Pull Requests: ❌ Not accepting (personal research project)\n\nThanks for your interest in this research!";
+
+                // Add comment
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  body: message
+                });
+
+                // Close PR
+                await github.rest.pulls.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  state: 'closed'
+                });
+
+                // Add labels
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pr.number,
+                  labels: ['external-pr', 'closed-by-automation']
+                });
+              }
+            }
