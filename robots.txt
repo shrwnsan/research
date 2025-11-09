@@ -1,0 +1,77 @@
+# robots.txt for Research: Agentic Augmentation Jekyll site
+# https://shrwnsan.github.io/research/
+
+# Allow all web crawlers to access the site
+User-agent: *
+
+# Disallow access to Jekyll system files and directories
+Disallow: /_layouts/
+Disallow: /_includes/
+Disallow: /_sass/
+Disallow: /_site/
+Disallow: /_posts/
+Disallow: /.jekyll-cache/
+Disallow: /gemfiles/
+Disallow: /vendor/
+Disallow: /node_modules/
+
+# Disallow access to development and cache files
+Disallow: /.sass-cache/
+Disallow: /package.json
+Disallow: /Gemfile
+Disallow: /Gemfile.lock
+Disallow: /README.md
+Disallow: /.git/
+
+# Disallow access to common Jekyll development directories
+Disallow: /_docs/
+Disallow: /_data/
+Disallow: /_plugins/
+Disallow: /_config.yml
+
+# Allow access to CSS, JS, and images (remove restrictions if needed)
+Allow: /css/
+Allow: /js/
+Allow: /public/
+Allow: /assets/
+Allow: *.css
+Allow: *.js
+Allow: *.png
+Allow: *.jpg
+Allow: *.jpeg
+Allow: *.gif
+Allow: *.ico
+Allow: *.svg
+
+# Crawl delay to prevent server overload
+Crawl-delay: 1
+
+# Special rules for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Social media crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Specific disallow rules for aggressive crawlers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://shrwnsan.github.io/research/sitemap.xml
