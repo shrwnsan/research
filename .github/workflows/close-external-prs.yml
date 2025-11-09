@@ -14,11 +14,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: `👋 Thanks for your interest in this repository!
+            const body = `👋 Thanks for your interest in this repository!
 
 This repository does not accept external pull requests. The maintainers prefer to keep development focused on their specific roadmap and requirements.
 
@@ -31,36 +27,25 @@ This repository does not accept external pull requests. The maintainers prefer t
 - Issues: ✅ Open (for feedback, bug reports, suggestions)
 - Pull Requests: ❌ Closed (maintainers only)
 
-Thanks for understanding!`,
+Thanks for understanding!`;
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body
             });
 
-            github.rest.pulls.update({
+            await github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.issue.number,
               state: 'closed'
             });
 
-            github.rest.issues.addLabels({
+            await github.rest.issues.addLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
               labels: ['external-pr', 'closed-by-automation']
-            });
-
-  add-labels-if-not-closed:
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.head.repo.full_name != github.repository
-
-    steps:
-      - name: Add labels to external PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            // Add 'external-contribution' label for visibility
-            github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: ['external-contribution']
             });
