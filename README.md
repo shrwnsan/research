@@ -31,6 +31,7 @@ research/
 ├── _config.yml              # Jekyll configuration
 ├── index.html               # Homepage with post listings
 ├── about.md                 # About page
+├── colophon.md              # Colophon/methodology page
 ├── _posts/                  # Research articles
 │   └── YYYY-MM-DD-title.md  # Posts follow Jekyll naming convention
 ├── _includes/               # Reusable components
@@ -44,6 +45,13 @@ research/
 │   ├── css/                # Stylesheets (Lanyon theme)
 │   ├── js/                 # JavaScript files
 │   └── favicon.ico         # Site favicon
+├── scripts/                 # Development utilities
+│   └── dev-start.sh        # Docker development launcher
+├── docs/                    # Documentation
+│   ├── DOCKER-README.md    # Docker setup guide
+│   └── social-sharing-setup.md # Social media configuration
+├── docker-compose.yml       # Docker orchestration
+├── Dockerfile              # Custom Docker image
 └── README.md               # This file
 ```
 
@@ -72,15 +80,20 @@ research/
 
 ## Local Development
 
-This site is optimized for GitHub Pages deployment. For local development:
+For comprehensive development setup and documentation:
 
+📖 **See [docs/DOCKER-README.md](docs/DOCKER-README.md) for Docker setup**
+📖 **See [docs/social-sharing-setup.md](docs/social-sharing-setup.md) for social media configuration**
+
+### Quick Start
 ```bash
+# Docker development (recommended)
+./scripts/dev-start.sh dev
+# Visit http://localhost:4000
+
 # Using Ruby Jekyll
 bundle install
 bundle exec jekyll serve
-
-# Or with Docker (if available)
-docker run -p 4000:4000 -v $(pwd):/site jekyll/jekyll jekyll serve
 ```
 
 ## Deployment
