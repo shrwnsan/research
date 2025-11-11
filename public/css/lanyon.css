@@ -556,3 +556,34 @@ a.pagination-item:hover {
 .layout-reverse.sidebar-overlay #sidebar-checkbox:checked ~ .sidebar {
   box-shadow: -.25rem 0 .5rem rgba(0,0,0,.1);
 }
+
+/* Site Footer */
+.site-footer {
+  padding: 2rem 0;
+  margin-top: 3rem;
+  border-top: 1px solid #e5e5e5;
+  background-color: #f8f9fa;
+}
+
+.site-footer .container {
+  max-width: 38rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+}
+
+.site-footer .copyright {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+  text-align: left;
+}
+
+.site-footer .copyright a {
+  color: #495057;
+  text-decoration: none;
+}
+
+.site-footer .copyright a:hover {
+  text-decoration: underline;
+}
