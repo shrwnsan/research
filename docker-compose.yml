@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    ports:
+      - "4000:4000"
+      - "35729:35729"  # Live reload port
+    volumes:
+      - .:/srv/jekyll
+      - ./vendor/bundle:/usr/local/bundle
+    command: >
+      bash -c "bundle install &&
+               bundle exec jekyll serve --host 0.0.0.0
+               --port 4000
+               --livereload
+               --force_polling
+               --incremental"
+    environment:
+      - JEKYLL_ENV=development
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+    platform: linux/amd64  # Explicit platform for consistency
+
+  # Optional: Test with production-like settings
+  jekyll-prod:
+    image: jekyll/jekyll:latest
+    ports:
+      - "4001:4000"
+    volumes:
+      - .:/srv/jekyll
+      - ./vendor/bundle:/usr/local/bundle
+    command: >
+      bash -c "bundle install &&
+               bundle exec jekyll build &&
+               bundle exec jekyll serve --host 0.0.0.0
+               --port 4000
+               --future
+               --unpublished"
+    environment:
+      - JEKYLL_ENV=production
+      - LANG=C.UTF-8
+      - LC_ALL=C.UTF-8
+    platform: linux/amd64
+    profiles:
+      - production

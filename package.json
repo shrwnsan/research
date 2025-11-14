@@ -1,0 +1,33 @@
+{
+  "name": "research",
+  "version": "1.0.0",
+  "description": "Exploring what emerges when human curiosity meets AI capability through collaborative research projects.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tinacms": "tinacms dev -c \"jekyll serve\"",
+    "tinacms:docker": "tinacms dev -c \"docker-compose up\"",
+    "tinacms:docker-prod": "tinacms dev -c \"docker-compose --profile production up\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shrwnsan/research.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shrwnsan/research/issues"
+  },
+  "homepage": "https://github.com/shrwnsan/research#readme",
+  "dependencies": {
+    "tinacms": "^2.9.3"
+  },
+  "devDependencies": {
+    "@tinacms/cli": "^1.12.2",
+    "@types/node": "^24.10.1"
+  }
+}

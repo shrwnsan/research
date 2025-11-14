@@ -12,6 +12,7 @@ description: "Technical and editorial methodology"
 
 **Platform Architecture**
 - **Jekyll**: Static site generator with GitHub Pages deployment
+- **TinaCMS**: Headless CMS providing visual content editing alongside traditional markdown authoring
 - **Lanyon Theme**: Content-first, minimal design with sidebar navigation
 - **Mermaid.js**: Interactive diagrams for technical visualization
 - **Roboto/Lora Typography**: Clean sans-serif headings with elegant serif body text optimized for research readability
@@ -23,6 +24,9 @@ We selected the Lanyon theme for its content-first philosophy and clean design a
 
 **Development Methodology**
 This site itself is a demonstration of our research approach - built through collaborative dialogue between human direction and AI execution. Each component represents questions asked and solutions discovered through human-AI partnership.
+
+**Content Creation**
+We support both visual editing through TinaCMS and traditional markdown authoring, allowing contributors to choose their preferred approach.
 
 ## Research Methodology
 
