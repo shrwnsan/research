@@ -103,32 +103,42 @@ For comprehensive development setup and documentation:
 
 ### Quick Start
 
-#### TinaCMS Development (Recommended)
-Choose one of the following TinaCMS development options:
+#### 🚀 Enhanced Development Launcher (Recommended)
+
+Start with the interactive development launcher for guided setup:
 
 ```bash
-# Option 1: TinaCMS with Docker (recommended)
-bun run tinacms:docker
-# Access CMS at: http://localhost:4000/admin/index.html
-# GraphQL API: http://localhost:4001/graphql
-
-# Option 2: TinaCMS with local Jekyll
-bun run tinacms
-# Access CMS at: http://localhost:4000/admin/index.html
-
-# Option 3: TinaCMS with production-like Docker
-bun run tinacms:docker-prod
-# Access CMS at: http://localhost:4001/admin/index.html
+# Interactive menu with all options
+./scripts/dev-start.sh
 ```
 
-#### Traditional Development
-```bash
-# Docker development (without TinaCMS)
-./scripts/dev-start.sh dev
-# Visit http://localhost:4000
+The launcher provides a user-friendly menu with:
+- 🎨 **TinaCMS + Docker** (Recommended for visual editing)
+- 💻 **TinaCMS + Local Ruby** (Advanced, faster startup)
+- 🐳 **Traditional Jekyll** (Legacy Docker setup)
+- 🛠️ **Utility tools** (Stop, clean, build Docker images)
+- 📚 **Help and documentation**
 
-# Using Ruby Jekyll (without TinaCMS)
-bundle install
+#### Direct Commands (Power Users)
+
+```bash
+# TinaCMS + Docker (recommended)
+bun run tinacms:docker
+# Access CMS: http://localhost:4000/admin/index.html
+
+# TinaCMS + Local Ruby (advanced, requires Ruby 3.1.2)
+bun run tinacms
+# Access CMS: http://localhost:4000/admin/index.html
+
+# TinaCMS + Production Docker (testing)
+bun run tinacms:docker-prod
+# Access CMS: http://localhost:4001/admin/index.html
+```
+
+#### Traditional Development (Legacy)
+```bash
+# Traditional Jekyll development
+./scripts/dev-start.sh dev
 bundle exec jekyll serve
 ```
 
