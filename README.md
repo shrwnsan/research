@@ -17,6 +17,7 @@ We don't have all the answers, but we're documenting what we discover. Perhaps y
 ## Features
 
 - **Lanyon Theme**: Clean, minimal design with sidebar toggle and responsive layout
+- **TinaCMS Integration**: Headless CMS for visual content editing and management
 - **Mermaid Diagrams**: Interactive technical diagrams, flowcharts, and architectural visualizations
 - **Roberto Typography**: Professional fonts optimized for readability
 - **GitHub Pages Ready**: Fully optimized for deployment on GitHub Pages
@@ -34,6 +35,8 @@ research/
 ├── colophon.md              # Colophon/methodology page
 ├── _posts/                  # Research articles
 │   └── YYYY-MM-DD-title.md  # Posts follow Jekyll naming convention
+├── content/                 # TinaCMS managed content
+│   └── posts/              # Blog posts managed by TinaCMS
 ├── _includes/               # Reusable components
 │   ├── head.html           # HTML head section
 │   └── sidebar.html        # Sidebar navigation
@@ -50,6 +53,10 @@ research/
 ├── docs/                    # Documentation
 │   ├── DOCKER-README.md    # Docker setup guide
 │   └── social-sharing-setup.md # Social media configuration
+├── tina/                    # TinaCMS configuration
+│   ├── config.ts           # TinaCMS setup and schema
+│   └── __generated__/      # Auto-generated GraphQL files
+├── package.json             # Node.js dependencies and scripts
 ├── docker-compose.yml       # Docker orchestration
 ├── Dockerfile              # Custom Docker image
 └── README.md               # This file
@@ -57,6 +64,15 @@ research/
 
 ## Adding New Research
 
+You can add research content either manually or through TinaCMS:
+
+### Method 1: TinaCMS Visual Editor (Recommended)
+1. Start the development server (see [Local Development](#local-development))
+2. Visit `http://localhost:4000/admin/index.html` to access TinaCMS
+3. Use the visual editor to create and edit posts
+4. TinaCMS automatically manages YAML front matter and file organization
+
+### Method 2: Manual File Creation
 1. Create a new markdown file in `_posts/` following the format: `YYYY-MM-DD-title.md`
 2. Add YAML front matter:
    ```yaml
@@ -86,15 +102,42 @@ For comprehensive development setup and documentation:
 📖 **See [docs/social-sharing-setup.md](docs/social-sharing-setup.md) for social media configuration**
 
 ### Quick Start
+
+#### TinaCMS Development (Recommended)
+Choose one of the following TinaCMS development options:
+
 ```bash
-# Docker development (recommended)
+# Option 1: TinaCMS with Docker (recommended)
+bun run tinacms:docker
+# Access CMS at: http://localhost:4000/admin/index.html
+# GraphQL API: http://localhost:4001/graphql
+
+# Option 2: TinaCMS with local Jekyll
+bun run tinacms
+# Access CMS at: http://localhost:4000/admin/index.html
+
+# Option 3: TinaCMS with production-like Docker
+bun run tinacms:docker-prod
+# Access CMS at: http://localhost:4001/admin/index.html
+```
+
+#### Traditional Development
+```bash
+# Docker development (without TinaCMS)
 ./scripts/dev-start.sh dev
 # Visit http://localhost:4000
 
-# Using Ruby Jekyll
+# Using Ruby Jekyll (without TinaCMS)
 bundle install
 bundle exec jekyll serve
 ```
+
+### TinaCMS Information
+
+- **Visual Editor**: Access at `/admin/index.html` on your development server
+- **GraphQL Playground**: Access at `/admin/index.html#/graphql`
+- **Auto-generated Files**: TinaCMS automatically generates TypeScript types and GraphQL client in `tina/__generated__/`
+- **Content Management**: Edit posts through the visual interface or manually in the `content/posts/` directory
 
 ## Deployment
 
@@ -103,8 +146,12 @@ The site is automatically deployed via GitHub Pages when pushing to the `main` b
 ## Technical Stack
 
 - **Jekyll**: Static site generator
+- **TinaCMS**: Headless CMS with visual editing capabilities
 - **Lanyon Theme**: Clean, minimal Jekyll theme
 - **Mermaid.js**: Diagram and flowchart generation
+- **Bun**: Package manager and runtime for JavaScript/TypeScript
+- **GraphQL**: API layer for content management
+- **Docker & Docker Compose**: Containerized development environment
 - **GitHub Pages**: Hosting and deployment
 - **Markdown**: Content authoring
 

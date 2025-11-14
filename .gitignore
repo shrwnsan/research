@@ -17,11 +17,9 @@ Thumbs.db
 # Logs
 *.log
 
-# Docker
-docker-compose.yml
-Dockerfile
-
 # Temporary files
 *.tmp
 *.bak
 *~
+node_modules
+.env
