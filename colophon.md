@@ -14,7 +14,7 @@ description: "Technical and editorial methodology"
 - **Jekyll**: Static site generator with GitHub Pages deployment
 - **Lanyon Theme**: Content-first, minimal design with sidebar navigation
 - **Mermaid.js**: Interactive diagrams for technical visualization
-- **Roboto Typography**: Clean, readable fonts optimized for research content
+- **Roboto/Lora Typography**: Clean sans-serif headings with elegant serif body text optimized for research readability
 
 ## Theme & Design
 

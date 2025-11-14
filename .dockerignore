@@ -1,0 +1,30 @@
+# Skip Jekyll cache and build artifacts
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Skip bundler cache (will be mounted separately)
+vendor/bundle/
+
+# Skip OS files
+.DS_Store
+Thumbs.db
+
+# Skip Git
+.git/
+.gitignore
+
+# Skip Node modules if present
+node_modules/
+
+# Skip IDE files
+.vscode/
+.idea/
+
+# Skip logs
+*.log
+
+# Skip temporary files
+*.tmp
+*.temp
