@@ -23,3 +23,13 @@ Thumbs.db
 *~
 node_modules
 .env
+
+# TinaCMS generated files
+tina/__generated__/
+tina/tina-lock.json
+
+# Development editor files
+*.swp
+*.swo
+.vscode/
+.idea/
