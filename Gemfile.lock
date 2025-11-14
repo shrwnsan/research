@@ -45,13 +45,13 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    ffi (1.17.2-aarch64-linux-gnu)
+    ffi (1.17.2-aarch64-linux)
     ffi (1.17.2-aarch64-linux-musl)
-    ffi (1.17.2-arm-linux-gnu)
+    ffi (1.17.2-arm-linux)
     ffi (1.17.2-arm-linux-musl)
     ffi (1.17.2-arm64-darwin)
     ffi (1.17.2-x86_64-darwin)
-    ffi (1.17.2-x86_64-linux-gnu)
+    ffi (1.17.2-x86_64-linux)
     ffi (1.17.2-x86_64-linux-musl)
     forwardable-extended (2.6.0)
     gemoji (4.1.0)
@@ -241,11 +241,11 @@ GEM
     minitest (5.26.1)
     net-http (0.7.0)
       uri
-    nokogiri (1.18.10-aarch64-linux-gnu)
+    nokogiri (1.18.10-aarch64-linux)
       racc (~> 1.4)
     nokogiri (1.18.10-aarch64-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.10-arm-linux-gnu)
+    nokogiri (1.18.10-arm-linux)
       racc (~> 1.4)
     nokogiri (1.18.10-arm-linux-musl)
       racc (~> 1.4)
@@ -253,7 +253,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.10-x86_64-linux-gnu)
+    nokogiri (1.18.10-x86_64-linux)
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
@@ -292,13 +292,13 @@ GEM
     webrick (1.9.1)
 
 PLATFORMS
-  aarch64-linux-gnu
+  aarch64-linux
   aarch64-linux-musl
-  arm-linux-gnu
+  arm-linux
   arm-linux-musl
   arm64-darwin
   x86_64-darwin
-  x86_64-linux-gnu
+  x86_64-linux
   x86_64-linux-musl
 
 DEPENDENCIES

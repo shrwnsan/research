@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tinacms": "tinacms dev -c \"jekyll serve\"",
+    "tinacms": "tinacms dev -c \"bundle exec jekyll serve\"",
     "tinacms:docker": "tinacms dev -c \"docker-compose up\"",
     "tinacms:docker-prod": "tinacms dev -c \"docker-compose --profile production up\""
   },
