@@ -8,13 +8,13 @@ permalink:        /:slug/
 
 # About/contact
 author:
-  name:           "Research Team"
+  name:           "shrwnsan"
   url:            ""
   email:          ""
   twitter:        ""
 
 # Social media settings
-twitter_username:            ""  # Your Twitter username without @
+twitter_username:            "shrwnsan"  # Your Twitter username without @
 social_image:                "/apple-touch-icon-precomposed.png"  # Default social sharing image (1200x630px recommended)
 facebook_app_id:             ""  # Facebook App ID for insights
 social_logo:                 "/apple-touch-icon-precomposed.png"  # Logo for structured data
@@ -46,7 +46,7 @@ plugins:
 
 # Custom vars
 version:           1.1.0
-google_analytics_id:
+google_analytics_id: G-YH7JYZZT4V
 
 # Build settings
 markdown:          kramdown

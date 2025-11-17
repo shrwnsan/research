@@ -140,11 +140,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 48em) {
+  .masthead {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
   .masthead-title {
     text-align: center;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
   }
+
   .masthead-title small {
     display: none;
+  }
+
+  /* Mobile post titles - larger than masthead for hierarchy */
+  .post-title {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Mobile body text adjustments */
+  .container {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Mobile paragraph spacing */
+  p {
+    margin-bottom: 1.2rem;
   }
 }
 
@@ -305,6 +333,7 @@ a.sidebar-nav-item:focus {
           backface-visibility: hidden;
 }
 .wrap,
+.site-footer,
 .sidebar-toggle {
   -webkit-transition: -webkit-transform .3s ease-in-out;
           transition: transform .3s ease-in-out;
@@ -316,6 +345,7 @@ a.sidebar-nav-item:focus {
 }
 #sidebar-checkbox:checked ~ .sidebar,
 #sidebar-checkbox:checked ~ .wrap,
+#sidebar-checkbox:checked ~ .site-footer,
 #sidebar-checkbox:checked ~ .sidebar-toggle {
   -webkit-transform: translateX(14rem);
       -ms-transform: translateX(14rem);
