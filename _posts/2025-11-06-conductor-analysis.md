@@ -291,4 +291,4 @@ The investment in Conductor provides immediate returns and scales significantly 
 
 ---
 
-🤖 Generated in collaboration with [Claude Code](https://claude.ai/claude-code) - GLM 4.6
+🤖 Co-Authored-By: [Claude Code](https://claude.ai/claude-code) (GLM 4.6)

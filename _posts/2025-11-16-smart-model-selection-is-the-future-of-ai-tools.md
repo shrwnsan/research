@@ -139,4 +139,4 @@ However, only extended real-world use will reveal whether this intelligent routi
 
 ---
 
-🤖 Generated in collaboration with [Gemini CLI](https://geminicli.com/)
+🤖 Co-Authored-By: [Gemini CLI](https://geminicli.com/)

@@ -76,7 +76,7 @@ We're exploring how AI serves as an augmentor across domains:
 ## Publication Ethics
 
 **AI Attribution**
-All content represents human-AI collaboration. We use "Co-Authored-By: GLM" or "Generated in collaboration with Gemini CLI" attribution to maintain transparency about AI contributions while honoring human editorial direction and inquiry design.
+All content emerges from human-AI dialogue. We use "Co-Authored-By: GLM" attribution to reflect that posts represent conversations between human inquiry and AI execution.
 
 **Research Integrity**
 - Questions drive the research, not predetermined conclusions
