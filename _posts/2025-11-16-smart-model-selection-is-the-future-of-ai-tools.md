@@ -14,13 +14,25 @@ This friction, this constant need to tweak the settings, is one of the biggest h
 
 The answer is a feature that sounds deceptively simple: **Auto-mode**.
 
+![Auto mode selection within Gemini CLI](../assets/images/2025-11-16/gemini-cli-select-model.png)
+
 ### The 'Aha!' Moment: From Manual Control to Intelligent Partner
 
 The inspiration behind this shift wasn't just about convenience; it was a philosophical evolution. The team recognized that the user's goal isn't to *manage an AI model*; it's to *get a task done*. Every moment spent deliberating over which model to use is a moment not spent on the actual work.
 
-This challenge isn't unique. Across the landscape of agentic tools, we see different approaches to this "pilot's cockpit" problem. In the **Anthropic ecosystem**, a user might manually select a model for their session (`claude --model sonnet`) or use clever aliases that hint at smarter routing—using a powerful model for planning and a faster one for execution.
+This challenge isn't unique. Across the landscape of agentic tools, we see different approaches to this "pilot's cockpit" problem. In the **Anthropic ecosystem**, attempts at intelligent model selection reveal just how difficult this problem truly is.
 
-While these are all steps toward a more fluid experience, they often still place the burden of choice or initial configuration on the user. The core insight of a truly "auto" mode is to make this intelligence ambient and invisible. What if the tool was smart enough to make the decision for you, every single time?
+Consider Claude Code's "opusplan" feature and broader model selection challenges, which reveal how difficult intelligent routing truly is. While opusplan theoretically "uses opus during plan mode, then switches to sonnet for execution,"<sup>[1](https://code.claude.com/docs/en/model-config)</sup> the implementation has been plagued by issues.
+
+> The implementation of Opus plan mode keeps claude-opus-4-1-20250805 in the system prompt at all times, which we can consider a bug.<sup>[2](https://github.com/anthropics/claude-code/issues/6108)</sup>
+
+But the problems run deeper: a fresh issue from just last week reveals that Claude Code incorrectly uses Opus for the first 25% of usage even when Sonnet 4.5 is explicitly selected.<sup>[3](https://github.com/anthropics/claude-code/issues/11452)</sup>
+
+This pattern of model selection failures extends across the platform: users report "OPUS TOKENS RUNNING WITHOUT OPUS BEING SELECTED"<sup>[4](https://github.com/anthropics/claude-code/issues/8688)</sup> and even Haiku users finding unexpected Opus charges draining their quotas.<sup>[5](https://github.com/anthropics/claude-code/issues/10829)</sup>
+
+These ongoing challenges in the Claude ecosystem highlight why Gemini CLI's Auto-mode approach is such a welcomed development. While real-world, long-term testing will ultimately determine its reliability, Auto-mode's transparent routing and detailed interaction summaries suggest a promising solution to one of AI tooling's most persistent friction points. The contrast between these approaches reveals how much careful engineering goes into making "intelligent" model selection truly work in practice.
+
+Other approaches in the Anthropic ecosystem involve manual model selection (`claude --model sonnet`) or clever aliases that hint at smarter routing. While these are all steps toward a more fluid experience, they often still place the burden of choice or initial configuration on the user. The core insight of a truly "auto" mode is to make this intelligence ambient and invisible. What if the tool was smart enough to make the decision for you, every single time?
 
 ### Under the Hood: The AI Traffic Controller
 
@@ -121,7 +133,9 @@ The story of Auto-mode is the story of getting technology out of the way so that
 
 ### The Evolving Intelligence
 
-Auto-mode is not a static feature; its underlying routing logic is constantly learning and being refined. As AI models themselves evolve, and as new use cases emerge, the intelligence behind Auto-mode will adapt, becoming even more adept at anticipating your needs and delivering optimal results. This continuous evolution ensures that the Gemini CLI remains at the forefront of intuitive, powerful AI interaction.
+Auto-mode is not a static feature; its underlying routing logic is constantly learning and being refined. As AI models themselves evolve, and as new use cases emerge, the intelligence behind Auto-mode will adapt, becoming even more adept at anticipating your needs and delivering optimal results.
+
+However, only extended real-world use will reveal whether this intelligent routing holds up under diverse conditions. Questions remain about how well Auto-mode handles edge cases, maintains performance at scale, and adapts to changing user needs over time. The early promise is compelling, but the true test will be how this system performs across thousands of users and countless different use cases.
 
 ---
 
