@@ -53,6 +53,8 @@ We're exploring how AI serves as an augmentor across domains:
 
 ## Editorial Approach
 
+**Writing Style:** Simple format—ask interesting questions, then follow the evidence wherever it leads. Think of it as detective work for AI insights.
+
 **Voice: Smart Casual Socratic**
 - Authoritative yet approachable
 - Thought-provoking questions that invite reader engagement
