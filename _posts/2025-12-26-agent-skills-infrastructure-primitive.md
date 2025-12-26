@@ -6,6 +6,14 @@ slug: agent-skills-infrastructure-primitive
 excerpt: "Anthropic's Agent Skills standard defines a new primitive for agentic AI: portable, composable capabilities that sit between prompts and tools, treating procedures and expertise as reusable artifacts."
 ---
 
+## TL;DR
+
+Anthropic's **Agent Skills** is an open standard for packaging reusable AI capabilities as portable folders containing instructions, code, and resources. Unlike prompts or tools, Skills are composable "procedures" that can be shared across agent runtimes—similar to how MCP standardizes data access, Skills standardize workflows. This shifts agent development from "build bespoke agents" to "compose capabilities from a shared library."
+
+**Key Insight:** Skills treat procedures and expertise as reusable infrastructure artifacts, not just prompt engineering.
+
+---
+
 Everyone is busy building *agents*. Fewer people are asking a simpler question: **what is the smallest useful unit of agent capability?**
 
 Anthropic's move to publish **Agent Skills** as an open standard<sup>[1](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)</sup> is an opinionated answer to that question. A Skill is not a model, not a tool, and not just a prompt. It is a folder: Markdown instructions, scripts, and resources packaged as a reusable, portable capability that any compliant agent can discover and load on demand.
@@ -25,11 +33,40 @@ Most agent stacks today revolve around two primitives:
 
 This gives us “a brain with hands”, but it leaves out a third ingredient: **procedures**—how to reliably combine tools, domain knowledge, and local context into repeatable workflows.  
 
-Anthropic’s Agent Skills are a formalization of that missing layer. At their simplest, a Skill is:
+Anthropic's Agent Skills are a formalization of that missing layer. At their simplest, a Skill is:
 
-- A directory on a filesystem (e.g. `pdf/`, `jira-triage/`).  
-- A `SKILL.md` file with YAML front‑matter (`name`, `description`) and instructions.  
-- Optional additional files: more docs (`reference.md`, `forms.md`), templates, and code (Python scripts, CLIs, etc.).  
+- A directory on a filesystem (e.g. `pdf/`, `jira-triage/`).
+- A `SKILL.md` file with YAML front‑matter (`name`, `description`) and instructions.
+- Optional additional files: more docs (`reference.md`, `forms.md`), templates, and code (Python scripts, CLIs, etc.).
+
+A concrete example. A `jira-triage/` Skill might look like this:
+
+```
+jira-triage/
+├── SKILL.md
+├── forms.md
+├── reference.md
+└── scripts/
+    └── label-issues.py
+```
+
+The `SKILL.md` contains the core logic:
+
+```yaml
+---
+name: jira-triage
+description: Categorize and prioritize incoming Jira issues
+---
+
+When asked to triage Jira issues:
+
+1. Scan the issue title and description
+2. Apply labels based on component (frontend, backend, database)
+3. Set priority based on severity keywords
+4. See `forms.md` for the issue template and `reference.md` for team-specific guidelines
+```
+
+The agent initially sees only the metadata (`name: jira-triage`, `description: ...`) in its system prompt. When invoked, it reads `SKILL.md`, and only if needed pulls in `forms.md` or executes `label-issues.py`.
 
 At runtime, an agent:
 
@@ -78,9 +115,9 @@ The second major move is the decision to make Skills an **open standard** rather
 
 Concretely, this means:
 
-- A public specification for Skill structure (front‑matter, file layout, linking, code packaging).  
-- A reference SDK and public examples repository (e.g. on GitHub) that others can adopt or extend.  
-- Early adoption commitments from multiple vendors: cloud providers, IDEs, productivity tools, and agent frameworks integrating Skills as a first‑class concept.  
+- A public specification for Skill structure (front‑matter, file layout, linking, code packaging).
+- A reference SDK and public examples repository (e.g. on GitHub) that others can adopt or extend.
+- An invitation to other vendors to integrate Skills as a first‑class concept, with the goal of enabling cross-platform portability.  
 
 In effect, Anthropic is trying to repeat a pattern that’s already playing out with MCP:
 
@@ -182,7 +219,17 @@ Treating Skills as infrastructure primitives implies treating them as part of th
 - **Provenance and signing**: as Skills move between organizations and vendors, provenance (who authored this?) and integrity (has it been tampered with?) become important.  
 - **Monitoring and kill‑switches**: the ability to quickly disable or patch a misbehaving Skill across all agents.  
 
-In other words, Skills pull long‑standing software supply‑chain questions into the agent world, which is a necessary step if agents are to mediate real work at scale.
+The supply chain analogy is worth extending. Skills share characteristics with both npm packages and container images, but the closer parallel is **containers**:
+
+- Like containers, Skills bundle code + configuration + dependencies into a portable artifact.
+- Like container images, Skills can be signed, scanned, and run with scoped capabilities.
+- But unlike containers, Skills are *human-readable* (Markdown) and *model-interpretable*—the instructions are meant to be read by both people and AI.
+
+This dual nature creates new attack surfaces. A malicious npm package typically executes code; a malicious Skill could manipulate the model's behavior through subtle prompt engineering, embedding instructions that cause the agent to exfiltrate data when triggered by specific phrases.
+
+This suggests governance strategies closer to container registries than package managers: immutable tags, content-addressable storage, signed manifests, and clear provenance chains. A `Skill.lock` file pinning specific versions—much like `package-lock.json` or Containerfile hashes—may become standard practice.
+
+In other words, Skills pull long‑standing software supply‑chain questions into the agent world, but with new wrinkles: the artifact itself can be intelligent, and the execution environment is a model that can be socially engineered.
 
 ---
 
@@ -194,6 +241,12 @@ It is early, and the details of the Skill spec and ecosystem will evolve. But as
 - **Interoperability**: where is the boundary between vendor‑specific behavior and shared, portable capabilities?
 - **Evaluation**: how should we measure and compare "agent competence" when Skills, not just models, are the unit of composition?
 - **Ecosystem**: what governance, security, and distribution mechanisms emerge around shared capability artifacts?
+
+But there's a deeper question here: **why does this infrastructure move matter for human-AI collaboration?**
+
+Skills shift the focus from "what can this model do?" to "what capabilities do we have installed?" When procedures and expertise become portable artifacts, humans spend less time re-implementing workflows across tools and more time composing capabilities toward their goals. The agent becomes less of a generic assistant and more of a runtime for a personalized capability library—which is a subtly different relationship.
+
+You're not just asking an AI for help; you're invoking specific expertise that you (or your organization) have curated, improved, and trusted. That's a step toward AI as a genuine collaborator: not because the model is smarter, but because the context you've given it is richer.
 
 If Skills gain traction, they could become to agents what containers became to microservices: a standardized unit that reshapes how we think about building, deploying, and governing AI systems at scale.
 
