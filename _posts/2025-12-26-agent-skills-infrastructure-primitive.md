@@ -6,17 +6,11 @@ slug: agent-skills-infrastructure-primitive
 excerpt: "Anthropic's Agent Skills standard defines a new primitive for agentic AI: portable, composable capabilities that sit between prompts and tools, treating procedures and expertise as reusable artifacts."
 ---
 
-## TL;DR
+Last week, I tried to teach my AI research partner how to help triage issues for this project. I wrote instructions, provided examples, explained our workflow. Three prompts later, it was still making mistakes—not because it couldn't understand the task, but because the procedural knowledge wasn't sticking in a way it could reliably reuse.
 
-Anthropic's **Agent Skills** is an open standard for packaging reusable AI capabilities as portable folders containing instructions, code, and resources. Unlike prompts or tools, Skills are composable "procedures" that can be shared across agent runtimes—similar to how MCP standardizes data access, Skills standardize workflows. This shifts agent development from "build bespoke agents" to "compose capabilities from a shared library."
+This made me wonder: what if expertise wasn't something we had to re-teach in every conversation, but something we could package as a reusable capability?
 
-**Key Insight:** Skills treat procedures and expertise as reusable infrastructure artifacts, not just prompt engineering.
-
----
-
-Everyone is busy building *agents*. Fewer people are asking a simpler question: **what is the smallest useful unit of agent capability?**
-
-Anthropic's move to publish **Agent Skills** as an open standard<sup>[1](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)</sup> is an opinionated answer to that question. A Skill is not a model, not a tool, and not just a prompt. It is a folder: Markdown instructions, scripts, and resources packaged as a reusable, portable capability that any compliant agent can discover and load on demand.
+Anthropic's **Agent Skills**<sup>[1](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)</sup> might be an answer. A Skill is not a model, not a tool, and not just a prompt. It is a folder: Markdown instructions, scripts, and resources packaged as a reusable, portable capability that any compliant agent can discover and load on demand.
 
 That sounds mundane—another spec, another folder format—until you zoom out. If the Model Context Protocol (MCP) turned "access to systems and data" into a shared protocol, Skills aim to do the same for *procedures and expertise*. Instead of baking workflows into bespoke "agents" per vendor, you ship them once as Skills and let different runtimes compete to execute them well.
 
@@ -81,6 +75,16 @@ The important shift here is conceptual:
 
 Prompts describe behavior, tools expose actions, but Skills package **procedural knowledge plus the machinery to execute it**.
 
+## Why this matters for collaboration
+
+This shift from prompts to Skills changes the human-AI dynamic in three ways:
+
+1. **From explaining to installing:** Instead of walking your AI partner through the same workflow repeatedly, you "install" that capability once and invoke it when needed. The conversation shifts from "here's how to do X" to "let's apply our X workflow to this case."
+
+2. **From implicit to explicit:** Skills force you to make tacit knowledge explicit. You can't just "wing it" with vague instructions—the format requires clear, reusable procedures. This creates better artifacts for both human and AI collaborators.
+
+3. **From solo to collective:** A Skill library becomes a shared resource. My "literature review" Skill can help your AI partner, and vice versa. We're not just building personal assistants—we're building a commons of collaborative capabilities.
+
 ---
 
 ## Progressive disclosure as a systems design trick
@@ -136,30 +140,9 @@ There is still plenty of room for divergence—how tools are bound, how evaluati
 
 ## Skills in the emerging agent infrastructure stack
 
-Zooming out, Skills sit alongside several other emerging primitives in what is starting to look like an “agent infrastructure stack”:
+Skills sit between models and orchestration frameworks, playing a unique role: they're legible to both humans (as Markdown + code) and agents (as loadable instructions). This makes Skills a natural home for standard operating procedures, runbooks, and institutional knowledge—artifacts that live at the boundary between human and machine understanding.
 
-- **Models**: the base foundation and fine‑tuned models.  
-- **Context / data protocols**: MCP and equivalents for connecting to systems and knowledge sources.  
-- **Tools / APIs**: function calling, OpenAPI‑derived tools, domain SDKs.  
-- **Skills**: packaged procedures + instructions + tools + assets.  
-- **Orchestration frameworks**: LangGraph, custom planners, multi‑agent frameworks.  
-- **Evaluation and observability**: platforms like Langfuse for tracing, scoring, and regression testing.  
-
-Within this stack, Skills play several roles:
-
-1. **Boundary object between humans and agents**  
-   Skills are legible to both: humans can read and write them (they’re Markdown + code), and agents can load and execute them. This makes Skills a natural home for **standard operating procedures (SOPs)**, runbooks, and institutional knowledge that would otherwise live in wikis or prompts.  
-
-2. **Unit of deployment and governance**  
-   Instead of “deploying an agent”, organizations can **deploy Skills** into existing agent runtimes. Permissions, approvals, and policies can be attached at the Skill level: which teams can use which Skills, which Skills can call which tools, etc.  
-
-3. **Attachment point for evaluation**  
-   Evaluation efforts can be framed as “how well does this agent execute this Skill on this benchmark?” rather than undifferentiated task suites. This aligns nicely with how enterprises think: QA for “refund workflow” vs QA for “customer support agent” as a whole.  
-
-4. **Target for optimization and research**  
-   Optimizations like caching, test coverage, and safety checks can be applied per‑Skill. Research on agent behavior (e.g. self‑improvement, reflection, tool learning) can treat Skills as the environment in which behaviors are learned and codified.  
-
-As more systems adopt Skills (or something like them), it becomes more natural to talk about **agent capabilities in terms of installed Skills**—similar to how we describe a server in terms of installed services or packages.
+As more systems adopt Skills, it becomes natural to talk about agent capabilities in terms of installed Skills—similar to how we describe a server in terms of installed services. But for human-AI collaboration, the more interesting shift is how Skills let us "install" expertise into our AI partners rather than having to re-explain it every conversation.
 
 ---
 
@@ -202,6 +185,32 @@ This points toward a **Skills ecosystem** with marketplaces, open‑source repos
 
 ---
 
+## Experimenting with Skills: What we're learning
+
+We've been building Skills for our own development workflows and discovering a few things.
+
+### Two concrete examples
+
+**crafting-commits**<sup>[4](https://github.com/shrwnsan/vibekit-claude-plugins/tree/main/plugins/base)</sup> is a Skill for creating professional git commit messages. Instead of explaining conventional commit format, Co-Authored-By attribution, and quality validation in every conversation, we package that expertise once. When we need to commit changes, we invoke the Skill and it handles the workflow autonomously.
+
+**meta-searching**<sup>[4](https://github.com/shrwnsan/vibekit-claude-plugins/tree/main/plugins/search-plus)</sup> is a Skill for reliable web research when standard tools fail. When Claude Code hits 403 errors, rate limits, or validation problems trying to fetch documentation, this Skill delegates to specialized agents with multi-service fallback strategies.
+
+Both are portable: the same Skills work across different Claude Code projects, different models, and could theoretically work with other agent runtimes that adopt the standard.
+
+### What we're discovering
+
+**The boundary between Skill and Tool is fuzzy.** Some workflows feel like they should be Skills (procedures) but actually work better as Tools (function calls). "Crafting commits" works well as a Skill because it's primarily instructional with some tool use. But a "search the web" capability might be better as a direct Tool. Figuring out which is which requires trial and error.
+
+**Skills reveal hidden assumptions.** Writing a Skill for "crafting commits" forced us to make explicit rules we'd been applying intuitively. What counts as a "breaking change"? When is Co-Authored-By required? The process of creating the Skill improved our own understanding of the workflow.
+
+**Skills need versions, not just updates.** When you change a Skill, you're changing how your AI partner behaves in all future conversations. We've learned to version Skills explicitly and test changes before rolling them out—a Skill that works differently than yesterday can be confusing for both humans and agents.
+
+**Collaboration requires shared vocabulary.** The most effective Skills use consistent terminology that matches how we actually talk about the work. When the Skill language diverges from our natural language, the AI feels more like a tool and less like a partner.
+
+We don't have all the answers yet, but Skills feel like a step toward AI as genuine collaborator: not because the model is smarter, but because the context we've given it is richer and more reusable.
+
+---
+
 ## Security, supply chain, and governance
 
 Of course, the moment you define a portable capability format, you also define a new **supply chain**.  
@@ -233,6 +242,19 @@ In other words, Skills pull long‑standing software supply‑chain questions in
 
 ---
 
+## Open questions
+
+We don't have answers yet, but we're exploring:
+
+- **Discovery:** How do we find the right Skills without overwhelming our AI partners with options?
+- **Composition:** What happens when multiple Skills give conflicting advice? Who resolves?
+- **Evaluation:** How do we measure whether a Skill actually improves collaboration outcomes?
+- **Augmentation vs. dependency:** As Skills get better, are we enhancing human capability or creating dependency on packaged expertise?
+
+If you're experimenting with similar questions, we'd love to compare notes.
+
+---
+
 ## Where this might go
 
 It is early, and the details of the Skill spec and ecosystem will evolve. But as an infrastructure move, Skills are interesting because they invite a different framing for several open questions in agentic AI:
@@ -257,6 +279,7 @@ If Skills gain traction, they could become to agents what containers became to m
 1. [Agent Skills Documentation](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) - Official Anthropic documentation on the Skills format
 2. [Model Context Protocol](https://modelcontextprotocol.io/) - Open standard for connecting AI models to data and tools
 3. [Claude Code](https://claude.ai/code) - Anthropic's CLI tool implementing Skills
+4. [VibeKit Claude Plugins](https://github.com/shrwnsan/vibekit-claude-plugins) - Open-source plugin marketplace featuring crafting-commits and meta-searching Skills
 
 ---
 
