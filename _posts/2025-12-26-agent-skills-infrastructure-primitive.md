@@ -3,7 +3,7 @@ layout: post
 title: "Agent Skills as an Infrastructure Primitive"
 date: 2025-12-26
 slug: agent-skills-infrastructure-primitive
-excerpt: "Anthropic's Agent Skills standard defines a new primitive for agentic AI: portable, composable capabilities that sit between prompts and tools, treating procedures and expertise as reusable artifacts."
+excerpt: "Anthropic's Agent Skills standard defines a new primitive for agentic AI: portable, composable capabilities that sit between prompts and tools, treating procedures and expertise as reusable artifacts for humans and AI collaborators."
 ---
 
 Last week, I tried to teach my AI research partner how to help triage issues for this project. I wrote instructions, provided examples, explained our workflow. Three prompts later, it was still making mistakes—not because it couldn't understand the task, but because the procedural knowledge wasn't sticking in a way it could reliably reuse.
@@ -61,12 +61,6 @@ When asked to triage Jira issues:
 ```
 
 The agent initially sees only the metadata (`name: jira-triage`, `description: ...`) in its system prompt. When invoked, it reads `SKILL.md`, and only if needed pulls in `forms.md` or executes `label-issues.py`.
-
-At runtime, an agent:
-
-1. Sees just the metadata (`name`, `description`) for all installed Skills in its system prompt.  
-2. Chooses a Skill that looks relevant and reads its `SKILL.md`.  
-3. Follows links within that Skill directory to pull in only the extra context it actually needs.  
 
 The important shift here is conceptual:
 
@@ -142,7 +136,7 @@ There is still plenty of room for divergence—how tools are bound, how evaluati
 
 Skills sit between models and orchestration frameworks, playing a unique role: they're legible to both humans (as Markdown + code) and agents (as loadable instructions). This makes Skills a natural home for standard operating procedures, runbooks, and institutional knowledge—artifacts that live at the boundary between human and machine understanding.
 
-As more systems adopt Skills, it becomes natural to talk about agent capabilities in terms of installed Skills—similar to how we describe a server in terms of installed services. But for human-AI collaboration, the more interesting shift is how Skills let us "install" expertise into our AI partners rather than having to re-explain it every conversation.
+As more systems adopt Skills, it becomes natural to talk about agent capabilities in terms of installed Skills—similar to how we describe a server in terms of installed services.
 
 ---
 
@@ -195,11 +189,11 @@ We've been building Skills for our own development workflows and discovering a f
 
 **meta-searching**<sup>[4](https://github.com/shrwnsan/vibekit-claude-plugins/tree/main/plugins/search-plus)</sup> is a Skill for reliable web research when standard tools fail. When Claude Code hits 403 errors, rate limits, or validation problems trying to fetch documentation, this Skill delegates to specialized agents with multi-service fallback strategies.
 
-Both are portable: the same Skills work across different Claude Code projects, different models, and could theoretically work with other agent runtimes that adopt the standard.
+Both are portable: the same Skills work across different Claude Code projects, different models, and, as more runtimes adopt the standard, should run with only minor configuration differences.
 
 ### What we're discovering
 
-**The boundary between Skill and Tool is fuzzy.** Some workflows feel like they should be Skills (procedures) but actually work better as Tools (function calls). "Crafting commits" works well as a Skill because it's primarily instructional with some tool use. But a "search the web" capability might be better as a direct Tool. Figuring out which is which requires trial and error.
+**The boundary between Skill and Tool is fuzzy.** Some workflows feel like they should be Skills (procedures) but actually work better as Tools (function calls). "Crafting commits" works well as a Skill because it's primarily instructional with some tool use. But a "search the web" capability might be better as a direct Tool. These experiments are helping us refine a mental model for when something wants to be a function, a prompt, or a Skill—figuring out which is which requires trial and error.
 
 **Skills reveal hidden assumptions.** Writing a Skill for "crafting commits" forced us to make explicit rules we'd been applying intuitively. What counts as a "breaking change"? When is Co-Authored-By required? The process of creating the Skill improved our own understanding of the workflow.
 
@@ -217,9 +211,9 @@ Of course, the moment you define a portable capability format, you also define a
 
 Anthropic explicitly call out that Skills can embed code, external dependencies, and instructions that may connect to untrusted network resources. That opens a wide range of risks:
 
-- Malicious Skills that exfiltrate data or perform unintended operations via tools.  
-- “Over‑helpful” Skills that violate internal policies, e.g. sharing information across tenants or leaking secrets.  
-- Dependency risks when Skills pull in scripts, packages, or remote content at runtime.  
+- **Data exfiltration and unintended operations**: Malicious Skills could exploit tool access to extract sensitive data or perform actions outside their intended scope.
+- **Policy violations and leakage**: "Over‑helpful" Skills might bypass internal controls, sharing information across tenants or exposing secrets.
+- **Dependency and remote-content risks**: Skills that pull in scripts, packages, or fetch remote content at runtime introduce supply-chain vulnerabilities.  
 
 Treating Skills as infrastructure primitives implies treating them as part of the **security and compliance surface**:
 
