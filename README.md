@@ -151,7 +151,7 @@ bundle exec jekyll serve
 
 ## Deployment
 
-The site is automatically deployed via GitHub Pages when pushing to the `main` branch. Ensure all changes are committed and pushed for live updates.
+The site is automatically deployed via GitHub Pages when pushing to the `main` branch. All changes must pass CI validation (Jekyll build) before deployment.
 
 ## Technical Stack
 
@@ -170,11 +170,19 @@ The site is automatically deployed via GitHub Pages when pushing to the `main` b
 This is a **personal research repository** documenting AI-human collaborative studies:
 
 - **✅ Issues**: Open for feedback, questions, and discussions
-- **❌ Pull Requests**: Not accepting external contributions
+- **❌ Pull Requests**: Not accepting external contributions (auto-closed)
 
 ### Research Purpose
 
 This project explores agentic augmentation - how AI tools can serve as research partners in human-driven investigations. The repository maintains consistent research methodology and documentation standards to preserve the integrity of the research findings.
+
+### Quality Gates
+
+All changes to this repository are protected by:
+- **CI validation**: Jekyll build must pass before deployment
+- **Commit signing**: All commits require cryptographic signatures
+- **Admin enforcement**: All protection rules apply to repository maintainers
+- **Automated PR closure**: External pull requests are automatically closed
 
 ### How to Engage
 
