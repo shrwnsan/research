@@ -38,12 +38,12 @@ Other approaches in the Anthropic ecosystem involve manual model selection (`cla
 
 Think of Auto-mode as an intelligent dispatcher sitting between you and the powerful Gemini models. Here’s how it works:
 
-1.  **It Analyzes the Intent:** When you type a prompt, Auto-mode doesn't just pass it along. It first performs a rapid analysis of your request. Is it a simple command, like converting a date format? Is it a moderately complex task, like summarizing a file? Or is it a deeply complex request, like architecting a new software component?
+1. **It Analyzes the Intent:** When you type a prompt, Auto-mode doesn't just pass it along. It first performs a rapid analysis of your request. Is it a simple command, like converting a date format? Is it a moderately complex task, like summarizing a file? Or is it a deeply complex request, like architecting a new software component?
 
-2.  **It Routes to the Right Specialist:** Based on that analysis, it routes your request to the optimal model for the job:
-    *   **Simple Task? -> Flash Lite:** For quick, straightforward queries, it uses the fastest, most efficient model to give you an almost instantaneous answer.
-    *   **Balanced Need? -> Flash:** For tasks requiring a mix of speed and solid reasoning, it calls on the balanced Flash model.
-    *   **Complex Problem? -> Pro:** When you ask for deep, creative, or highly complex analysis, it automatically engages the most powerful Pro model to ensure the highest quality response.
+2. **It Routes to the Right Specialist:** Based on that analysis, it routes your request to the optimal model for the job:
+   - **Simple Task? -> Flash Lite:** For quick, straightforward queries, it uses the fastest, most efficient model to give you an almost instantaneous answer.
+   - **Balanced Need? -> Flash:** For tasks requiring a mix of speed and solid reasoning, it calls on the balanced Flash model.
+   - **Complex Problem? -> Pro:** When you ask for deep, creative, or highly complex analysis, it automatically engages the most powerful Pro model to ensure the highest quality response.
 
 This all happens in a fraction of a second. You don't see the routing; you just experience the result: a fast response for simple things, and a powerful, well-reasoned response for hard things.
 
@@ -98,9 +98,9 @@ For developers and power users, understanding the 'why' behind a tool's behavior
 
 When asked a complex, strategic question about how to position the blog post, the Pro model didn't just give a simple answer. It went through a multi-step process of analysis and strategy formulation, as revealed by its internal thoughts:
 
-*   **`Focusing the Post's Scope`**: "I'm currently dissecting the user's primary concerns... The central dilemma seems to revolve around whether the focus should be tightly knit to 'Gemini CLI' or if it should be broadened to capture a wider audience. I'm leaning toward weighing the pros and cons..."
-*   **`Considering Broader Appeal`**: "I'm now contemplating whether broadening the blog post's scope... would be beneficial. I'm carefully weighing the pros and cons, which include factors like audience size, search engine optimization, and the blog's potential longevity..."
-*   **`Formulating the Blog Strategy`**: "I've been analyzing the user's files to understand their blog's goals. I'm leaning toward a hybrid strategy: starting with the broader concept of AI/agentic CLI tools, then diving into Gemini CLI as a specific case study. The goal is to maximize appeal while demonstrating expertise."
+- **`Focusing the Post's Scope`**: "I'm currently dissecting the user's primary concerns... The central dilemma seems to revolve around whether the focus should be tightly knit to 'Gemini CLI' or if it should be broadened to capture a wider audience. I'm leaning toward weighing the pros and cons..."
+- **`Considering Broader Appeal`**: "I'm now contemplating whether broadening the blog post's scope... would be beneficial. I'm carefully weighing the pros and cons, which include factors like audience size, search engine optimization, and the blog's potential longevity..."
+- **`Formulating the Blog Strategy`**: "I've been analyzing the user's files to understand their blog's goals. I'm leaning toward a hybrid strategy: starting with the broader concept of AI/agentic CLI tools, then diving into Gemini CLI as a specific case study. The goal is to maximize appeal while demonstrating expertise."
 
 This sequence of thoughts demonstrates the Pro model's capacity for abstract reasoning, strategic planning, and synthesizing information from multiple sources to form a coherent recommendation.
 
@@ -108,10 +108,10 @@ This sequence of thoughts demonstrates the Pro model's capacity for abstract rea
 
 When asked to help compose the blog post itself, the Pro model immediately started thinking like a writer, focusing on narrative structure and audience engagement:
 
-*   **`Unpacking the Request`**: "I'm currently dissecting the user's prompt to pinpoint the core focus... My aim is to craft a compelling narrative for a blog post. I'm focusing on user need, and I will be working on a blog post structure."
-*   **`Refining the Narrative`**: "I'm now zeroing in on the narrative structure. The 'hook' is solid - the paradox of choice is relatable. I'm focusing on framing the problem, exploring the feeling of being overwhelmed by too many options."
-*   **`Exploring the Analogy`**: "I'm developing a strong analogy for Auto-mode, focusing on making it intuitive... I'm prioritizing clarity... focusing on the 'intelligent routing' aspect. I think it is important to not get lost in jargon or technical details."
-*   **`Developing the Framework`**: "I'm now solidifying the blog post's foundation... The analogy of the smart mail sorter is becoming the 'AI Traffic Controller.' I'm now crafting the 'Under the Hood' section of the blog post... My first step involves crafting the hook, leveraging the 'paradox of choice' to immediately resonate with the reader."
+- **`Unpacking the Request`**: "I'm currently dissecting the user's prompt to pinpoint the core focus... My aim is to craft a compelling narrative for a blog post. I'm focusing on user need, and I will be working on a blog post structure."
+- **`Refining the Narrative`**: "I'm now zeroing in on the narrative structure. The 'hook' is solid - the paradox of choice is relatable. I'm focusing on framing the problem, exploring the feeling of being overwhelmed by too many options."
+- **`Exploring the Analogy`**: "I'm developing a strong analogy for Auto-mode, focusing on making it intuitive... I'm prioritizing clarity... focusing on the 'intelligent routing' aspect. I think it is important to not get lost in jargon or technical details."
+- **`Developing the Framework`**: "I'm now solidifying the blog post's foundation... The analogy of the smart mail sorter is becoming the 'AI Traffic Controller.' I'm now crafting the 'Under the Hood' section of the blog post... My first step involves crafting the hook, leveraging the 'paradox of choice' to immediately resonate with the reader."
 
 Here, the Pro model's thoughts reveal its ability to break down a creative task into structured components, consider rhetorical devices (like analogies), and plan a narrative flow—all critical elements of effective content creation.
 
@@ -125,9 +125,9 @@ This isn't just a feature for developers. It’s what makes the Gemini CLI a no-
 
 Want to test your understanding of Auto-mode? Try these prompts in the Gemini CLI and see if you can predict which model (Flash Lite, Flash, or Pro) the CLI will choose, and why.
 
-*   **Prompt 1 (Simple):** `What is the capital of France?`
-*   **Prompt 2 (Moderate):** `Summarize the key arguments from the 'AGENTS.md' file in three bullet points.`
-*   **Prompt 3 (Complex):** `Draft a short, persuasive email to a potential investor, explaining the core value proposition of a new AI-powered research assistant. Focus on market opportunity and competitive advantage.`
+- **Prompt 1 (Simple):** `What is the capital of France?`
+- **Prompt 2 (Moderate):** `Summarize the key arguments from the 'AGENTS.md' file in three bullet points.`
+- **Prompt 3 (Complex):** `Draft a short, persuasive email to a potential investor, explaining the core value proposition of a new AI-powered research assistant. Focus on market opportunity and competitive advantage.`
 
 The story of Auto-mode is the story of getting technology out of the way so that human creativity can shine. It’s about focusing on the "what," not the "how," and trusting you have an intelligent partner on the other side, ready to handle the details for you.
 
