@@ -35,7 +35,7 @@ Anthropic's Agent Skills are a formalization of that missing layer. At their sim
 
 A concrete example. A `jira-triage/` Skill might look like this:
 
-```
+```text
 jira-triage/
 ├── SKILL.md
 ├── forms.md
@@ -277,4 +277,4 @@ If Skills gain traction, they could become to agents what containers became to m
 
 ---
 
-🤖 Co-Authored-By: [Claude Code](https://claude.ai/claude-code) (GLM 4.7) & [Perplexity AI](https://www.perplexity.ai) (Sonar)
+🤖 Co-Authored-By: [Claude Code](https://claude.ai/code) (GLM 4.7) & [Perplexity AI](https://www.perplexity.ai) (Sonar)
