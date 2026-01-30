@@ -1,0 +1,15 @@
+{
+  "ignorePatterns": [],
+  "replacementPatterns": [
+    {
+      "pattern": "^http://",
+      "replacement": "https://"
+    }
+  ],
+  "httpHeaders": [],
+  "timeout": "10s",
+  "retryOn429": true,
+  "retryCount": 2,
+  "aliveStatusCodes": [200, 203, 206, 301, 302, 303, 307, 308, 403],
+  "fallbackRetryDelay": "1s"
+}
