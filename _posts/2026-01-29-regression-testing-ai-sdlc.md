@@ -175,4 +175,8 @@ If you're experimenting with AI-powered testing—or hitting the same walls we d
 
 ---
 
+**Interested in the AI models behind these tools?** See our follow-up: [The Hidden Layer: How Foundation Model Choice Makes or Breaks AI Testing Tools](/foundation-model-selection-ai-testing/)
+
+---
+
 🤖 Co-Authored-By: [Claude Code](https://claude.ai/code) (GLM 4.7)
