@@ -35,7 +35,7 @@ Most vendors don't disclose their model choices. And even when they do, the mode
 |-------|---------|---------------------------|-----------|
 | **Claude Opus 4.5** | Coding accuracy | 2× (expensive) | **80.9%** |
 | **GPT-5.2** | Reasoning & security | 0.7× (baseline) | 55.6% |
-| **GLM 4.7** | Reliable coding agents | ~0.3× (cheap) | 73.8% |
+| **GLM 4.7** | Reliable coding agents | 0.25× (Droid Core) | 73.8% |
 | **Claude Haiku 4.5** | Speed & triage | 0.4× (very cheap) | N/A |
 | **Gemini 3 Flash** | Simple tasks only | 0.2× (ultra-cheap) | N/A |
 
@@ -63,7 +63,7 @@ The cost difference is staggering. Using [Factory's pricing multipliers](https:/
 |----------|---------------------------|
 | **All GPT-5.2** (0.7×) | $27 (Pro plan) |
 | **All Claude Opus 4.5** (2×) | $540 (Ultra plan) |
-| **All GLM 4.7 Flash** (~0.15×) | $4 (Free plan) |
+| **All GLM 4.7** (0.25×) | $4 (Droid Core) |
 
 A team running 100K tokens/day in test generation spends:
 
@@ -72,6 +72,24 @@ A team running 100K tokens/day in test generation spends:
 - **$120/month** with GLM 4.7 Flash
 
 Same workload, 13.5× price difference.
+
+### Platform pricing varies
+
+The Factory multipliers above are one pricing model, but different platforms structure costs differently. Windsurf Cascade, for example, uses a credit system where models consume different amounts per prompt—and some frontier models are entirely free.
+
+| Model | Windsurf Credits | Factory Multiplier | Notes |
+|-------|------------------|-------------------|-------|
+| **GLM 4.7** | N/A | 0.25× | Droid Core - ultra-cheap |
+| **GPT-5.2 (no reasoning)** | 1x | 0.7× | Baseline |
+| **GPT-5.2 (medium reasoning)** | 2x | 0.7× | Balanced |
+| **GPT-5.2 (high reasoning)** | 3x | 0.7× | Complex tasks |
+| **GPT-5.2 (extra high reasoning)** | 8x | 0.7× | Deepest reasoning |
+| **Claude Sonnet 4.5** | 2x | ~1× | Mid-tier |
+| **Claude Sonnet 4.5 Thinking** | 3x | N/A | Extended thinking |
+| **Claude Opus 4.5** | 4x | 2× | Premium |
+| **Claude Opus 4.5 Thinking** | 5x | N/A | Max capability |
+
+The pattern holds across platforms: more capable models (thinking modes, larger context) cost more, while specialized models (GLM 4.7, SWE-1.5) can be surprisingly affordable—or free. This reinforces why understanding your platform's pricing structure matters: a model labeled "premium" on one platform might be free on another.
 
 ### Latency and throughput
 
@@ -235,6 +253,7 @@ The teams that thrive will be the ones who understand that AI testing tools aren
 6. [Z.ai: GLM-4.7 Documentation](https://docs.z.ai/guides/llm/glm-4.7) - Official Developer Documentation
 7. [GLM-4.7-Flash Ultimate Guide](https://medium.com/@zh.milo/glm-4-7-flash-the-ultimate-2026-guide-to-local-ai-coding-assistant-93a43c3f8db3) - Medium
 8. [The Unwind AI: Claude Opus 4.5 Scores 80.9% on SWE-Bench](https://www.theunwindai.com/p/claude-opus-4-5-scores-80-9-on-swe-bench)
+9. [Windsurf: AI Models & Credit Pricing](https://docs.windsurf.com/windsurf/models) - Official Documentation
 
 ---
 
