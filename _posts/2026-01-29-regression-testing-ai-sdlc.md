@@ -175,7 +175,7 @@ If you're experimenting with AI-powered testing—or hitting the same walls we d
 
 ---
 
-**Interested in the AI models behind these tools?** See our follow-up: [The Hidden Layer: How Foundation Model Choice Makes or Breaks AI Testing Tools](foundation-model-selection-ai-testing)
+**Interested in the AI models behind these tools?** See our follow-up: [The Hidden Layer: How Foundation Model Choice Makes or Breaks AI Testing Tools]({{ site.baseurl }}/foundation-model-selection-ai-testing/)
 
 ---
 

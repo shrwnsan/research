@@ -7,7 +7,7 @@ excerpt: "You chose mabl for self-healing tests. But which AI model powers it, a
 tags: [testing, ai, foundation-models, llm, benchmarking, cost-optimization]
 ---
 
-**In our previous article on AI regression testing**, we explored tools like mabl, Applitools, and Functionize—platforms that promise self-healing tests, autonomous generation, and intelligent prioritization. But there's a question most teams never ask: *Which AI model powers these tools, and does it matter?*
+**In our [previous article]({{ site.baseurl }}/regression-testing-ai-sdlc/)** on AI regression testing, we explored tools like mabl, Applitools, and Functionize—platforms that promise self-healing tests, autonomous generation, and intelligent prioritization. But there's a question most teams never ask: *Which AI model powers these tools, and does it matter?*
 
 The answer is yes—and it matters more than you think.
 
@@ -232,13 +232,13 @@ The teams that thrive will be the ones who understand that AI testing tools aren
 3. [GPT-5.2 Benchmarks](https://www.vellum.ai/blog/gpt-5-2-benchmarks) - Vellum AI
 4. [OpenAI: Introducing GPT-5.2](https://openai.com/index/introducing-gpt-5-2/) - Official Announcement
 5. [Qodo: Haiku vs Sonnet PR Benchmark](https://www.qodo.ai/blog/thinking-vs-thinking-benchmarking-claude-haiku-4-5-and-sonnet-4-5-on-400-real-prs/) - 400 Real PRs Study
-6. [Z.ai: GLM-4.7 Official Announcement](https://z.ai/blog/glm-4-7) - 73.8% SWE-bench
+6. [Z.ai: GLM-4.7 Documentation](https://docs.z.ai/guides/llm/glm-4.7) - Official Developer Documentation
 7. [GLM-4.7-Flash Ultimate Guide](https://medium.com/@zh.milo/glm-4-7-flash-the-ultimate-2026-guide-to-local-ai-coding-assistant-93a43c3f8db3) - Medium
 8. [The Unwind AI: Claude Opus 4.5 Scores 80.9% on SWE-Bench](https://www.theunwindai.com/p/claude-opus-4-5-scores-80-9-on-swe-bench)
 
 ---
 
-**Related:** [The Death of Maintenance: How AI Is Rewriting Regression Testing in 2026](/regression-testing-ai-sdlc/)
+**Related:** [The Death of Maintenance: How AI Is Rewriting Regression Testing in 2026]({{ site.baseurl }}/regression-testing-ai-sdlc/)
 
 ---
 
