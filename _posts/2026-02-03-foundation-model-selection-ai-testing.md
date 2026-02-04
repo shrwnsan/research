@@ -49,7 +49,7 @@ The pattern isn't "more expensive = better." It's "different models for differen
 
 Foundation models vary dramatically in their strengths:
 
-**Security analysis.** GPT-5.2's 92.4% on GPQA Diamond (a graduate-level reasoning benchmark) suggests superior threat detection. For security-focused test generation—finding SQL injection vectors, authentication bypasses, authorization flaws—reasoning depth matters. Claude Opus 4.5's 80.9% on SWE-Bench Verified makes it strong for code-aware security tests.
+**Security analysis.** GPT-5.2's 92.4% on GPQA Diamond (a graduate-level reasoning benchmark) may help with complex reasoning steps in security analysis—though GPQA is not a security-specific benchmark. For security-focused test generation—finding SQL injection vectors, authentication bypasses, authorization flaws—validate with security-specific evals (OWASP-style cases, internal red-team prompts). Claude Opus 4.5's 80.9% on SWE-Bench makes it strong for code-aware tests that require deep codebase understanding.
 
 **Code understanding.** Claude Opus 4.5 achieves the highest SWE-Bench score of any model (80.9%), meaning it's better at understanding real-world codebases. For tests that need deep comprehension of your application's architecture—integration tests, API contract tests—this matters.
 
@@ -57,21 +57,17 @@ Foundation models vary dramatically in their strengths:
 
 ### Cost multipliers
 
-The cost difference is staggering. Using [Factory's pricing multipliers](https://docs.factory.ai/pricing):
+The cost difference is staggering. Using [Factory's pricing](https://docs.factory.ai/pricing), a Pro plan ($20/month) gives you 20M standard tokens (including bonus). But model multipliers determine how far those tokens stretch:
 
-| Scenario | Monthly Cost (10M tokens) |
-|----------|---------------------------|
-| **All GPT-5.2** (0.7×) | $27 (Pro plan) |
-| **All Claude Opus 4.5** (2×) | $540 (Ultra plan) |
-| **All GLM 4.7** (0.25×) | $4 (Droid Core) |
+| Model | Multiplier | Tokens Available (Pro $20/mo) |
+|-------|-----------|-------------------------------|
+| **GLM 4.7** | 0.25× | 20M ÷ 0.25 = **80M tokens** |
+| **GPT-5.2** | 0.7× | 20M ÷ 0.7 = **~28.5M tokens** |
+| **Claude Opus 4.5** | 2× | 20M ÷ 2 = **10M tokens** |
 
-A team running 100K tokens/day in test generation spends:
+Same $20/month, but you get **8× more GLM tokens than Opus tokens**. For teams with high-volume test generation, this compounds quickly.
 
-- **$1,620/month** with Claude Opus 4.5
-- **$567/month** with GPT-5.2
-- **$120/month** with GLM 4.7 Flash
-
-Same workload, 13.5× price difference.
+*Pricing structures vary by platform. Factory and Windsurf use credit multipliers against subscription tiers; OpenCode Zen uses per-token rates. The comparisons above illustrate relative cost differences—always verify with your provider.*
 
 ### Platform pricing varies
 
@@ -119,7 +115,7 @@ Instead of choosing one model and using it everywhere, think in tiers:
 - Style and formatting checks
 - Quick smoke tests
 
-**Why:** Haiku 4.5 beats Sonnet 4.5 in 58% of PR reviews at 3× lower cost. GLM 4.7 Flash achieves 59.2% on SWE-Bench at $0.07/$0.40 per 1M tokens—or free via API tier.
+**Why:** Haiku 4.5 beats Sonnet 4.5 in 58% of PR reviews at 3× lower cost. [GLM 4.7 Flash](https://openrouter.ai/z-ai/glm-4.7-flash) achieves 59.2% on SWE-Bench at $0.07/$0.40 per 1M tokens via OpenRouter—or free via Z.ai's API tier.
 
 **Expected outcome:** Catch obvious issues fast, escalate complex cases to Tier 2.
 
@@ -190,7 +186,7 @@ def select_test_model(pr_context):
     return "gpt-5-2"
 ```
 
-**Result:** 80% of tests run on ultra-cheap models (Haiku, GLM Flash), 15% on GPT-5.2, 5% on Claude Opus 4.5. Cost reduction: ~85% vs. all-Opus strategy. Capability retained where it matters.
+**Result:** 80% of tests run on ultra-cheap models (Haiku, GLM Flash), 15% on GPT-5.2, 5% on Claude Opus 4.5. Using Factory multipliers: (0.80 × 0.25) + (0.15 × 0.7) + (0.05 × 2) = **0.41× average** vs 2× all-Opus = ~80% cost reduction. Capability retained where it matters.
 
 ---
 
@@ -234,7 +230,7 @@ Foundation model selection in testing will only become more important:
 
 **Model specialization.** We're already seeing models optimized for specific tasks—security, code review, terminal workflows. Testing-specific models may emerge.
 
-**Cost competition.** Chinese labs (Z.ai, Moonshot AI) are pushing prices down: GLM 4.7 Flash at $0.07/$0.40 per 1M tokens is 20× cheaper than GPT-5.2.
+**Cost competition.** Chinese labs (Z.ai, Moonshot AI) are pushing prices down: [GLM 4.7 Flash at $0.07/$0.40 per 1M tokens](https://openrouter.ai/z-ai/glm-4.7-flash) is 20× cheaper than GPT-5.2.
 
 **Multi-agent architectures.** Kimi K2.5's agent swarm coordinates up to 100 specialized agents simultaneously. For testing, this could mean parallel test generation across different scenarios.
 
@@ -256,6 +252,7 @@ The teams that thrive will be the ones who understand that AI testing tools aren
 8. [The Unwind AI: Claude Opus 4.5 Scores 80.9% on SWE-Bench](https://www.theunwindai.com/p/claude-opus-4-5-scores-80-9-on-swe-bench)
 9. [Windsurf: AI Models & Credit Pricing](https://docs.windsurf.com/windsurf/models) - Official Documentation
 10. [OpenCode Zen: Model Pricing](https://opencode.ai/docs/zen/#pricing) - Per-1M Token Pricing
+11. [OpenRouter: GLM 4.7 Flash Pricing](https://openrouter.ai/z-ai/glm-4.7-flash) - API Gateway Pricing
 
 ---
 
@@ -263,4 +260,4 @@ The teams that thrive will be the ones who understand that AI testing tools aren
 
 ---
 
-🤖 Co-Authored-By: [Claude Code](https://claude.ai/code) (GLM 4.7)
+🤖 Co-Authored-By: [Claude Code](https://claude.ai/code) (GLM 4.7) & [Amp Code](https://ampcode.com) (Claude Opus 4.5)
