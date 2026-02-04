@@ -51,6 +51,7 @@ google_analytics_id: G-YH7JYZZT4V
 # Build settings
 markdown:          kramdown
 highlighter:       rouge
+future:            true
 
 # Exclude from processing
 exclude:

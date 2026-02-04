@@ -11,7 +11,7 @@
     "tinacms": "tinacms dev -c \"bundle exec jekyll serve\"",
     "tinacms:docker": "tinacms dev -c \"docker-compose up\"",
     "tinacms:docker-prod": "tinacms dev -c \"docker-compose --profile production up\"",
-    "check:links": "find _posts -name '*.md' -exec node scripts/check-links-wrapper.js {} \\;",
+    "check:links": "git diff --cached --name-only --diff-filter=ACMR | grep '_posts/.*\\.md$' | xargs -r -I {} node scripts/check-links-wrapper.js {}",
     "lint:md": "markdownlint '_posts/**/*.md'",
     "check": "npm run check:links && npm run lint:md",
     "prepare": "husky"
