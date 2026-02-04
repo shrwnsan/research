@@ -75,21 +75,27 @@ Same workload, 13.5× price difference.
 
 ### Platform pricing varies
 
-The Factory multipliers above are one pricing model, but different platforms structure costs differently. Windsurf Cascade, for example, uses a credit system where models consume different amounts per prompt—and some frontier models are entirely free.
+The Factory multipliers above are one pricing model, but different platforms structure costs differently. Windsurf Cascade uses a credit system where models consume different amounts per prompt—and some frontier models are entirely free. OpenCode Zen offers direct per-token pricing with several models available at no cost.
 
-| Model | Windsurf Credits | Factory Multiplier | Notes |
-|-------|------------------|-------------------|-------|
-| **GLM 4.7** | N/A | 0.25× | Droid Core - ultra-cheap |
-| **GPT-5.2 (no reasoning)** | 1x | 0.7× | Baseline |
-| **GPT-5.2 (medium reasoning)** | 2x | 0.7× | Balanced |
-| **GPT-5.2 (high reasoning)** | 3x | 0.7× | Complex tasks |
-| **GPT-5.2 (extra high reasoning)** | 8x | 0.7× | Deepest reasoning |
-| **Claude Sonnet 4.5** | 2x | ~1× | Mid-tier |
-| **Claude Sonnet 4.5 Thinking** | 3x | N/A | Extended thinking |
-| **Claude Opus 4.5** | 4x | 2× | Premium |
-| **Claude Opus 4.5 Thinking** | 5x | N/A | Max capability |
+| Model | Windsurf Credits | Factory Multiplier | OpenCode Zen ($/1M tokens) |
+|-------|------------------|-------------------|---------------------------|
+| **GLM 4.7 Free** | N/A | N/A | Free (limited time) |
+| **Kimi K2.5 Free** | N/A | N/A | Free (limited time) |
+| **GPT 5 Nano** | N/A | N/A | Free |
+| **GPT 5.1 Codex Mini** | N/A | N/A | $0.25 / $2.00 |
+| **GLM 4.7** | N/A | 0.25× | $0.60 / $2.20 |
+| **Qwen3 Coder 480B** | N/A | N/A | $0.45 / $1.50 |
+| **Kimi K2 Thinking** | N/A | N/A | $0.40 / $2.50 |
+| **GPT-5.2 (no reasoning)** | 1x | 0.7× | $1.75 / $14.00 |
+| **GPT-5.2 (medium reasoning)** | 2x | 0.7× | $1.75 / $14.00 |
+| **GPT-5.2 (high reasoning)** | 3x | 0.7× | $1.75 / $14.00 |
+| **Claude Haiku 4.5** | N/A | 0.4× | $1.00 / $5.00 |
+| **Claude Sonnet 4.5** | 2x | ~1× | $3.00 / $15.00 |
+| **Claude Sonnet 4.5 Thinking** | 3x | N/A | N/A |
+| **Claude Opus 4.5** | 4x | 2× | $5.00 / $25.00 |
+| **Claude Opus 4.5 Thinking** | 5x | N/A | N/A |
 
-The pattern holds across platforms: more capable models (thinking modes, larger context) cost more, while specialized models (GLM 4.7, SWE-1.5) can be surprisingly affordable—or free. This reinforces why understanding your platform's pricing structure matters: a model labeled "premium" on one platform might be free on another.
+The pattern holds across platforms: more capable models (thinking modes, larger context) cost more, while specialized models (GLM 4.7, SWE-1.5, Kimi K2.5) can be surprisingly affordable—or free. This reinforces why understanding your platform's pricing structure matters: a model labeled "premium" on one platform might be free on another. OpenCode Zen's direct dollar pricing also reveals something hidden by multiplier systems: Claude Opus 4.5 at $5/$25 per 1M tokens is genuinely expensive compared to GPT-5.2 at $1.75/$14—or completely free options like GLM 4.7 Free.
 
 ### Latency and throughput
 
@@ -254,6 +260,7 @@ The teams that thrive will be the ones who understand that AI testing tools aren
 7. [GLM-4.7-Flash Ultimate Guide](https://medium.com/@zh.milo/glm-4-7-flash-the-ultimate-2026-guide-to-local-ai-coding-assistant-93a43c3f8db3) - Medium
 8. [The Unwind AI: Claude Opus 4.5 Scores 80.9% on SWE-Bench](https://www.theunwindai.com/p/claude-opus-4-5-scores-80-9-on-swe-bench)
 9. [Windsurf: AI Models & Credit Pricing](https://docs.windsurf.com/windsurf/models) - Official Documentation
+10. [OpenCode Zen: Model Pricing](https://opencode.ai/docs/zen/#pricing) - Per-1M Token Pricing
 
 ---
 
