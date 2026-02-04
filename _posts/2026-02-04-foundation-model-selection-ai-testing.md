@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Hidden Layer: How Foundation Model Choice Makes or Breaks AI Testing Tools"
-date: 2026-02-03
+date: 2026-02-04
 slug: foundation-model-selection-ai-testing
 excerpt: "You chose mabl for self-healing tests. But which AI model powers it, and does it matter? Foundation model selection affects capability, cost, and latency—yet most teams treat it as a black box. Here's how to think about the AI behind your AI testing tools."
 tags: [testing, ai, foundation-models, llm, benchmarking, cost-optimization]
