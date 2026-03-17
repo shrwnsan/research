@@ -65,6 +65,38 @@ check_bun() {
   return 0
 }
 
+# Check if node_modules exists and install if missing
+check_node_modules() {
+  if [[ ! -d "node_modules" ]]; then
+    echo "⚠️  node_modules/ not found"
+    echo "📦 Installing Node.js dependencies..."
+    if bun install; then
+      echo "✅ Dependencies installed successfully!"
+      return 0
+    else
+      echo "❌ Failed to install dependencies"
+      return 1
+    fi
+  fi
+  return 0
+}
+
+# Check if Ruby gems are installed
+check_ruby_gems() {
+  if [[ -f "Gemfile" ]] && [[ ! -d "vendor/bundle" ]]; then
+    echo "⚠️  Ruby gems not found in vendor/bundle/"
+    echo "📦 Installing Ruby dependencies..."
+    if bundle install --path vendor/bundle; then
+      echo "✅ Ruby gems installed successfully!"
+      return 0
+    else
+      echo "❌ Failed to install Ruby gems"
+      return 1
+    fi
+  fi
+  return 0
+}
+
 # Enhanced environment check for different scenarios
 check_environment() {
   case "$1" in
@@ -74,10 +106,13 @@ check_environment() {
     "tinacms-docker")
       check_docker || return 1
       check_bun || return 1
+      check_node_modules || return 1
       ;;
     "tinacms-local")
       check_ruby || return 1
       check_bun || return 1
+      check_node_modules || return 1
+      check_ruby_gems || return 1
       ;;
     "jekyll-docker")
       check_docker || return 1
@@ -154,7 +189,10 @@ show_menu() {
   echo "  9️⃣  ❓ Help / Legacy Commands"
   echo "      Show traditional usage options"
   echo ""
-  echo -n "👉 Choose an option (1-9): "
+  echo "  🔟  🧹 Deep Clean (Full Reset)"
+  echo "      Remove all local dependencies + Docker cleanup"
+  echo ""
+  echo -n "👉 Choose an option (1-10): "
 }
 
 # Get user choice
@@ -178,6 +216,7 @@ get_choice() {
     7) return 7 ;;
     8) return 8 ;;
     9) return 9 ;;
+    10) return 10 ;;
     *) return 0 ;;
   esac
 }
@@ -504,6 +543,118 @@ check_all_dependencies() {
   fi
 }
 
+# Deep clean - remove all local dependencies and caches
+deep_clean() {
+  echo "🧹 **Deep Clean - Full Environment Reset**"
+  echo ""
+  echo "⚠️  This will remove ALL local dependencies and caches:"
+  echo ""
+  echo "  📦 Node.js:"
+  echo "     • node_modules/"
+  echo "     • bun.lockb"
+  echo ""
+  echo "  💎 Ruby/Bundler:"
+  echo "     • vendor/bundle/"
+  echo "     • Gemfile.lock"
+  echo ""
+  echo "  🌐 Jekyll:"
+  echo "     • _site/"
+  echo "     • .jekyll-cache/"
+  echo "     • .sass-cache/"
+  echo ""
+  echo "  🎨 TinaCMS:"
+  echo "     • .tina/"
+  echo ""
+  echo "  🐳 Docker:"
+  echo "     • All containers and volumes"
+  echo "     • System prune"
+  echo ""
+  echo "⚠️  You will need to reinstall dependencies after this!"
+  echo ""
+
+  if [[ -t 0 ]]; then
+    echo -n "❓ Are you sure? (y/N): "
+    read -r confirm
+    if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+      echo "❌ Deep clean cancelled"
+      return 1
+    fi
+  fi
+
+  echo ""
+  echo "🗑️  Removing local dependencies and caches..."
+  echo ""
+
+  # Node.js cleanup
+  if [[ -d "node_modules" ]]; then
+    echo "  • Removing node_modules/..."
+    rm -rf node_modules
+  fi
+  if [[ -f "bun.lockb" ]]; then
+    echo "  • Removing bun.lockb..."
+    rm -f bun.lockb
+  fi
+
+  # Ruby/Bundler cleanup
+  if [[ -d "vendor/bundle" ]]; then
+    echo "  • Removing vendor/bundle/..."
+    rm -rf vendor/bundle
+  fi
+  if [[ -f "Gemfile.lock" ]]; then
+    echo "  • Removing Gemfile.lock..."
+    rm -f Gemfile.lock
+  fi
+
+  # Jekyll cleanup
+  if [[ -d "_site" ]]; then
+    echo "  • Removing _site/..."
+    rm -rf _site
+  fi
+  if [[ -d ".jekyll-cache" ]]; then
+    echo "  • Removing .jekyll-cache/..."
+    rm -rf .jekyll-cache
+  fi
+  if [[ -d ".sass-cache" ]]; then
+    echo "  • Removing .sass-cache/..."
+    rm -rf .sass-cache
+  fi
+
+  # TinaCMS cleanup
+  if [[ -d ".tina" ]]; then
+    echo "  • Removing .tina/..."
+    rm -rf .tina
+  fi
+
+  echo ""
+
+  # Docker cleanup (reuse existing function logic)
+  if check_docker 2>/dev/null; then
+    echo "🐳 Cleaning Docker resources..."
+
+    echo "  • Stopping containers..."
+    docker-compose down -v --remove-orphans 2>/dev/null || echo "    (no containers to stop)"
+
+    echo "  • Cleaning Docker system..."
+    docker system prune -f 2>/dev/null && echo "  ✅ Docker cleaned"
+  else
+    echo "ℹ️  Docker not available, skipping Docker cleanup"
+  fi
+
+  echo ""
+  echo "✅ Deep clean complete!"
+  echo ""
+  echo "🔄 **Next steps:**"
+  echo "  • Run './dev-start.sh' and choose option 1 or 2"
+  echo "  • Dependencies will be reinstalled automatically"
+  echo "  • Or manually: bun install && bundle install --path vendor/bundle"
+  echo ""
+
+  if [[ -t 0 ]]; then
+    echo "  • Press Enter to continue..."
+    read
+  fi
+}
+
 # Show help and legacy options
 show_help() {
   echo "❓ **Help & Legacy Commands**"
@@ -625,8 +776,12 @@ main() {
         fi
         continue
         ;;
+      10)
+        deep_clean
+        break
+        ;;
       0)
-        echo "❌ Invalid choice. Please select 1-9."
+        echo "❌ Invalid choice. Please select 1-10."
         echo ""
         ;;
     esac

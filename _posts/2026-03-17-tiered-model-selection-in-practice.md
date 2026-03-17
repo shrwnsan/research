@@ -23,7 +23,7 @@ Our [previous article]({{ site.baseurl }}/foundation-model-selection-ai-testing/
 
 | Tier | Purpose | Model | Cost Profile |
 |------|---------|-------|-------------|
-| **Tier 1** | Fast triage | Claude Haiku 4.5 / GLM 4.7 Flash | Ultra-cheap |
+| **Tier 1** | Fast triage | Claude Haiku 4.5 / GLM Flash | Ultra-cheap |
 | **Tier 2** | Standard testing | GPT-5.2 / GLM-5 | Balanced |
 | **Tier 3** | Deep analysis | Claude Opus 4.5 / GPT-5.2 | Premium |
 
@@ -56,19 +56,15 @@ flowchart TD
     Decision -->|"standard, API, focused critical"| T2["Tier 2: Claude Code Action<br/>(GLM-5 via Z.ai)"]
     Decision -->|"security + critical,<br/>breaking API, large refactor"| T3["Tier 3: Factory Droid<br/>(GPT-5.2)"]
 
-    %% Force left-to-right ordering with invisible links
-    T3 ~~~ T2
-    T2 ~~~ T1
-
-    T1 --> Review1["Fast Doc Review"]
     T2 --> PollCI["Poll CI Status<br/>30s × 20 attempts"]
-    T3 --> PollRoute["Poll Route PR<br/>15s × 20 attempts"]
-
     PollCI -->|success| Review2["GLM-5 Code Review"]
     PollCI -->|timeout / failure| Skip2["Review Skipped"]
 
+    T3 --> PollRoute["Poll Route PR<br/>15s × 20 attempts"]
     PollRoute -->|tier == 3| Review3["Droid Deep Analysis"]
     PollRoute -->|tier ≠ 3| Skip3["Skip"]
+
+    T1 --> Review1["Fast Doc Review"]
 
     Review1 --> Comment1["PR Comment:<br/>📋 Findings"]
     Review2 --> Comment2["PR Comment:<br/>Full Review"]
