@@ -7,14 +7,6 @@ excerpt: "We theorized a tiered approach to foundation model selection. Then we 
 tags: [testing, ai, foundation-models, github-actions, ci-cd, cost-optimization, case-study]
 ---
 
-**In our [previous article]({{ site.baseurl }}/foundation-model-selection-ai-testing/)** on foundation model selection, we proposed a tiered framework: fast triage on cheap models, standard testing on mid-range models, deep analysis on premium models. We even included pseudocode.
-
-But pseudocode is comfortable. Production is where ideas get tested.
-
-So we built it. The [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — an open-source aggregator for Claude Code plugins — became our testing ground. Every pull request now flows through a tiered AI review pipeline that routes to different models based on complexity. Three tiers. Three AI agents. Three different cost profiles.
-
-It worked. Then it silently broke. Then we fixed it. Here's the full story.
-
 ## TL;DR
 
 We implemented a three-tier AI code review pipeline in GitHub Actions that routes PRs to different models based on complexity: Amp (rush mode) for docs, GLM-5 for standard changes, and GPT-5.2 for security-critical work. The result: **~87% cost reduction** compared to using premium models for everything. But the journey revealed two silent failures—a CI race condition and a `paths-ignore` contradiction—that taught us orchestration is as important as model choice.
@@ -22,6 +14,14 @@ We implemented a three-tier AI code review pipeline in GitHub Actions that route
 **Key Takeaway:** The best model doesn't help if the workflow that invokes it never runs. Design your AI pipeline observability for the gaps *between* workflows, not just within them.
 
 ---
+
+**In our [previous article]({{ site.baseurl }}/foundation-model-selection-ai-testing/)** on foundation model selection, we proposed a tiered framework: fast triage on cheap models, standard testing on mid-range models, deep analysis on premium models. We even included pseudocode.
+
+But pseudocode is comfortable. Production is where ideas get tested.
+
+So we built it. The [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — an open-source aggregator for Claude Code plugins — became our testing ground. Every pull request now flows through a tiered AI review pipeline that routes to different models based on complexity. Three tiers. Three AI agents. Three different cost profiles.
+
+It worked. Then it silently broke. Then we fixed it. Here's the full story.
 
 ## The theory, briefly
 
@@ -117,7 +117,7 @@ What makes this work in practice is the `hasCriticalPaths` check — it matches 
 
 ## What we actually deployed
 
-Here's where theory diverges from practice. The article's framework mapped models neatly to tiers. The reality required adaptation:
+Here's where theory diverges from practice. The previous article's framework mapped models neatly to tiers. The reality required adaptation:
 
 | Article Theory | What We Actually Used | Why |
 |---|---|---|
@@ -281,7 +281,7 @@ After fixing the bugs, here's how the tier distribution played out across ~40 PR
 
 Weighted average: **(0.15 × ~0) + (0.75 × 0.25) + (0.10 × 0.7) ≈ 0.26×**
 
-Compare to using Opus 4.5 (2× multiplier) for everything: that's roughly a **7.7× cost reduction** with capability preserved where it matters. The original article estimated ~80% cost reduction; in practice we're seeing closer to **87%** because Tier 1 (Amp rush) is effectively free rather than Haiku-priced.
+Compare to using Opus 4.5 (2× multiplier) for everything: that's roughly **7.7× cheaper** with capability preserved where it matters. The original article estimated ~80% cost reduction; in practice we're seeing closer to **87%** because Tier 1 (Amp rush) is effectively free rather than Haiku-priced.
 
 ---
 
@@ -329,7 +329,7 @@ If you're evaluating AI testing tools and asking "which model do they use?" (as 
 1. [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — The open-source project implementing this pipeline
 2. [PR #115: Fix tiered PR review workflow](https://github.com/shrwnsan/claude-marketplace-registry/pull/115) — The bug investigation and fix
 3. [The Hidden Layer: Foundation Model Selection]({{ site.baseurl }}/foundation-model-selection-ai-testing/) — The theory behind tiered model selection
-4. [Amp Code Action](https://ampcode.com/manual#github) — Tier 1 review action
+4. [Amp Code Action](https://ampcode.com) — Tier 1 review action
 5. [Claude Code Action](https://github.com/anthropics/claude-code-action) — Tier 2 review action
 6. [Factory Droid Action](https://github.com/Factory-AI/droid-action) — Tier 3 review action
 7. [Z.ai API Documentation](https://docs.z.ai/guides/llm/glm-5) — GLM-5 via Anthropic-compatible proxy
