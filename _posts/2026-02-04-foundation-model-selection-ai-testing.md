@@ -11,7 +11,7 @@ tags: [testing, ai, foundation-models, llm, benchmarking, cost-optimization]
 
 The answer is yes—and it matters more than you think.
 
-The same tool can behave dramatically differently depending on whether it's powered by GPT-5.2, Claude Opus 4.5, or a budget model like GLM Flash. One model might catch security vulnerabilities; another might miss them. One might generate comprehensive edge case tests; another might produce generic boilerplate. And the cost difference? Up to 25×.
+The same tool can behave dramatically differently depending on whether it's powered by GPT-5.2, Claude Opus 4.5, or a budget model like GLM 4.7 Flash. One model might catch security vulnerabilities; another might miss them. One might generate comprehensive edge case tests; another might produce generic boilerplate. And the cost difference? Up to 25×.
 
 Foundation model selection is the hidden layer of AI testing infrastructure. Here's how to think about it.
 
@@ -186,7 +186,7 @@ def select_test_model(pr_context):
     return "gpt-5-2"
 ```
 
-**Result:** 80% of tests run on ultra-cheap models (Haiku, GLM Flash), 15% on GPT-5.2, 5% on Claude Opus 4.5. Using Factory multipliers: (0.80 × 0.25) + (0.15 × 0.7) + (0.05 × 2) = **0.41× average** vs 2× all-Opus = ~80% cost reduction. Capability retained where it matters.
+**Result:** 80% of tests run on ultra-cheap models (Haiku, GLM 4.7 Flash), 15% on GPT-5.2, 5% on Claude Opus 4.5. Using Factory multipliers: (0.80 × 0.25) + (0.15 × 0.7) + (0.05 × 2) = **0.41× average** vs 2× all-Opus = ~80% cost reduction. Capability retained where it matters.
 
 ---
 
