@@ -15,6 +15,12 @@ So we built it. The [Claude Marketplace Registry](https://github.com/shrwnsan/cl
 
 It worked. Then it silently broke. Then we fixed it. Here's the full story.
 
+## TL;DR
+
+We implemented a three-tier AI code review pipeline in GitHub Actions that routes PRs to different models based on complexity: Amp (rush mode) for docs, GLM-5 for standard changes, and GPT-5.2 for security-critical work. The result: **~87% cost reduction** compared to using premium models for everything. But the journey revealed two silent failures—a CI race condition and a `paths-ignore` contradiction—that taught us orchestration is as important as model choice.
+
+**Key Takeaway:** The best model doesn't help if the workflow that invokes it never runs. Design your AI pipeline observability for the gaps *between* workflows, not just within them.
+
 ---
 
 ## The theory, briefly
@@ -77,9 +83,9 @@ Four workflow files make this work:
 
 2. **`amp-review-tier1.yml`** — Tier 1 executor. Uses [Amp Code Action](https://ampcode.com) in `rush` mode for documentation-only and minimal config changes. Fast, focused, cheap.
 
-3. **`claude-auto-pr-review.yml`** — Tier 2 executor. Uses Claude Code Action pointed at [Z.ai's API proxy](https://api.z.ai) serving GLM-5. Waits for CI to pass, then runs a full code review.
+3. **`claude-auto-pr-review.yml`** — Tier 2 executor. Uses Claude Code Action pointed at [Z.ai's API proxy](https://z.ai/model-api) serving GLM-5. Waits for CI to pass, then runs a full code review.
 
-4. **`droid-review.yml`** — Tier 3 executor. Uses [Factory Droid](https://docs.factory.ai) with GPT-5.2 for security-critical and architecturally significant changes.
+4. **`droid-review.yml`** — Tier 3 executor. Uses [Factory Droid](https://docs.factory.ai/) with GPT-5.2 for security-critical and architecturally significant changes.
 
 ### The routing logic
 
@@ -323,10 +329,10 @@ If you're evaluating AI testing tools and asking "which model do they use?" (as 
 1. [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — The open-source project implementing this pipeline
 2. [PR #115: Fix tiered PR review workflow](https://github.com/shrwnsan/claude-marketplace-registry/pull/115) — The bug investigation and fix
 3. [The Hidden Layer: Foundation Model Selection]({{ site.baseurl }}/foundation-model-selection-ai-testing/) — The theory behind tiered model selection
-4. [Amp Code Action](https://github.com/ampcode/action) — Tier 1 review action
+4. [Amp Code Action](https://ampcode.com/manual#github) — Tier 1 review action
 5. [Claude Code Action](https://github.com/anthropics/claude-code-action) — Tier 2 review action
 6. [Factory Droid Action](https://github.com/Factory-AI/droid-action) — Tier 3 review action
-7. [Z.ai API Documentation](https://docs.z.ai/guides/llm/glm-4.7) — GLM-5 via Anthropic-compatible proxy
+7. [Z.ai API Documentation](https://docs.z.ai/guides/llm/glm-5) — GLM-5 via Anthropic-compatible proxy
 
 ---
 
