@@ -565,9 +565,9 @@ deep_clean() {
   echo "  🎨 TinaCMS:"
   echo "     • .tina/"
   echo ""
-  echo "  🐳 Docker:"
-  echo "     • All containers and volumes"
-  echo "     • System prune"
+  echo "  🐳 Docker (project-scoped only):"
+  echo "     • Project containers and volumes"
+  echo "     • Project orphaned resources"
   echo ""
   echo "⚠️  You will need to reinstall dependencies after this!"
   echo ""
@@ -627,15 +627,15 @@ deep_clean() {
 
   echo ""
 
-  # Docker cleanup (reuse existing function logic)
+  # Docker cleanup (project-scoped only - does NOT affect other projects)
   if check_docker 2>/dev/null; then
-    echo "🐳 Cleaning Docker resources..."
+    echo "🐳 Cleaning project Docker resources..."
 
-    echo "  • Stopping containers..."
+    echo "  • Stopping project containers..."
     docker-compose down -v --remove-orphans 2>/dev/null || echo "    (no containers to stop)"
 
-    echo "  • Cleaning Docker system..."
-    docker system prune -f 2>/dev/null && echo "  ✅ Docker cleaned"
+    echo "  ✅ Project Docker resources cleaned"
+    echo "  ℹ️  Other Docker projects unaffected"
   else
     echo "ℹ️  Docker not available, skipping Docker cleanup"
   fi
