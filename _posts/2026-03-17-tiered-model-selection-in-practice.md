@@ -23,7 +23,7 @@ Our [previous article]({{ site.baseurl }}/foundation-model-selection-ai-testing/
 
 | Tier | Purpose | Model | Cost Profile |
 |------|---------|-------|-------------|
-| **Tier 1** | Fast triage | Claude Haiku 4.5 / GLM Flash | Ultra-cheap |
+| **Tier 1** | Fast triage | Claude Haiku 4.5 / GLM 4.7 Flash | Ultra-cheap |
 | **Tier 2** | Standard testing | GPT-5.2 / GLM-5 | Balanced |
 | **Tier 3** | Deep analysis | Claude Opus 4.5 / GPT-5.2 | Premium |
 
