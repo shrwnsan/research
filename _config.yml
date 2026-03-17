@@ -68,3 +68,4 @@ exclude:
   - README.md
   - docker-compose.yml
   - _docs
+  - .worktrees/
