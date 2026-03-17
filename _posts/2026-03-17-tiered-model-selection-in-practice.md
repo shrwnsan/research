@@ -62,18 +62,17 @@ flowchart TD
     Decision -->|"standard, API, focused critical"| T2["Tier 2: Claude Code Action<br/>(GLM-5 via Z.ai)"]
     Decision -->|"security + critical,<br/>breaking API, large refactor"| T3["Tier 3: Factory Droid<br/>(GPT-5.2)"]
 
+    T1 --> Review1["Fast Doc Review"]
+    Review1 --> Comment1["PR Comment:<br/>📋 Findings"]
+
     T2 --> PollCI["Poll CI Status<br/>30s × 20 attempts"]
     PollCI -->|success| Review2["GLM-5 Code Review"]
     PollCI -->|timeout / failure| Skip2["Review Skipped"]
+    Review2 --> Comment2["PR Comment:<br/>Full Review"]
 
     T3 --> PollRoute["Poll Route PR<br/>15s × 20 attempts"]
     PollRoute -->|tier == 3| Review3["Droid Deep Analysis"]
     PollRoute -->|tier ≠ 3| Skip3["Skip"]
-
-    T1 --> Review1["Fast Doc Review"]
-
-    Review1 --> Comment1["PR Comment:<br/>📋 Findings"]
-    Review2 --> Comment2["PR Comment:<br/>Full Review"]
     Review3 --> Comment3["PR Comment:<br/>Deep Analysis"]
 ```
 
