@@ -1,1 +1,9 @@
+# Generate llms.txt if posts changed
+STAGED_POSTS=$(git diff --cached --name-only --diff-filter=ACMR | grep '_posts/.*\.md$' || true)
+if [ -n "$STAGED_POSTS" ]; then
+  echo "Posts changed, regenerating llms.txt..."
+  node scripts/generate-llms-txt.js
+  git add llms.txt
+fi
+
 npm test
