@@ -1,0 +1,13 @@
+# Research: Agentic Augmentation
+
+> Technical research and analysis on AI agents, foundation model selection, and agentic systems. Focused on practical implementations and lessons learned.
+
+## Articles
+
+- [From Pseudocode to Pipeline: Implementing Tiered Model Selection](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2026-03-17-tiered-model-selection-in-practice.md): A three-tier AI code review pipeline in GitHub Actions with ~87% cost reduction
+- [Foundation Model Selection for AI-Powered Testing](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2026-02-04-foundation-model-selection-ai-testing.md): A tiered framework for matching models to testing tasks
+- [Regression Testing in the AI-Native SDLC](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2026-01-29-regression-testing-ai-sdlc.md): Rethinking regression testing when AI writes code
+- [Agent Skills: An Infrastructure Primitive](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2025-12-26-agent-skills-infrastructure-primitive.md): Treating agent capabilities as composable infrastructure
+- [Conductor Analysis](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2025-11-06-conductor-analysis.md): Analysis of orchestration patterns in agentic systems
+- [Smart Model Selection is the Future of AI Tools](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2025-11-16-smart-model-selection-is-the-future-of-ai-tools.md): Why model routing matters more than model choice
+- [First Research Post](https://raw.githubusercontent.com/shrwnsan/research/main/_posts/2025-11-05-first-research-post.md): Introduction to the research blog
