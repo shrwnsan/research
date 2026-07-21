@@ -137,3 +137,5 @@ Sometimes the most powerful prompt engineering is deleting the prompt loop entir
 *This investigation emerged from a running dialogue between human curiosity and AI execution. The scoreboard, the orchestrator, and the analysis were built collaboratively; the question — does simpler mean worse? — was the part that mattered most, and it was ours to ask.*
 
 *Next time: the methodology deserves its own treatment. How do you evaluate AI output when there's no ground truth to check against — no right answer, only better and worse judgments? The scoreboard we built for this is a first stab at that harder, more general problem.*
+
+🤖 Co-Authored-By: [Claude Code](https://claude.com/claude-code) (GLM-5-Turbo)
