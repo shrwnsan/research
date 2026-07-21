@@ -28,6 +28,9 @@ node_modules
 tina/__generated__/
 tina/tina-lock.json
 
+# Draft posts (held before publish)
+.draft/
+
 # Development editor files
 *.swp
 *.swo
