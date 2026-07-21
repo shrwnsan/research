@@ -138,4 +138,4 @@ Sometimes the most powerful prompt engineering is deleting the prompt loop entir
 
 *Next time: the methodology deserves its own treatment. How do you evaluate AI output when there's no ground truth to check against — no right answer, only better and worse judgments? The scoreboard we built for this is a first stab at that harder, more general problem.*
 
-🤖 Co-Authored-By: [Claude Code](https://claude.com/claude-code) (GLM-5-Turbo)
+🤖 Co-Authored-By: [Claude Code](https://claude.com/product/claude-code) (GLM-5-Turbo)
