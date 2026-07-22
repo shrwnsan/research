@@ -21,7 +21,7 @@ Over 14 consecutive days, the simpler system **won on engagement density 10 time
 
 ## The newsletter, and the problem it gave us
 
-Daily Sip does something deceptively simple: every morning just after 08:00 HKT it reads the top 30 stories on Hacker News, picks the 7 most editorially valuable, writes a summary for each, then renders the whole thing across seven languages — English, Mandarin, Cantonese, Japanese, Korean, French, German — with text briefings and audio narration.
+[Daily Sip](https://sipr.cc) does something deceptively simple: every morning just after 08:00 HKT it reads the top 30 stories on Hacker News, picks the 7 most editorially valuable, writes a summary for each, then renders the whole thing across seven languages — English, Mandarin, Cantonese, Japanese, Korean, French, German — with text briefings and audio narration.
 
 For most of its life, that job belonged to a single AI agent. A capable one. It would fetch the front page, read promising articles, deliberate about which seven deserved the spotlight, draft summaries, second-guess itself, revise, translate, check its own work, and ship. Beautiful in theory. In practice, a multi-minute session of 45 to 123 messages — any of which could fail, rate-limit, or quietly degrade the result. When the agent's platform updated, the whole pipeline held its breath.
 
