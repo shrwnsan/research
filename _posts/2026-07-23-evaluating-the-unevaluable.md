@@ -197,4 +197,6 @@ That's enough to start making better decisions about which AI systems to trust. 
 
 *The data — 14 days of head-to-head comparisons — is real, not synthetic. The limitations are stated, not hidden. We think that's how methodology should work.*
 
+---
+
 🤖 Co-Authored-By: [Claude Code](https://claude.com/product/claude-code) (GLM-5-Turbo)
