@@ -3,11 +3,11 @@ layout: post
 title: "The Hidden Layer: How Foundation Model Choice Makes or Breaks AI Testing Tools"
 date: 2026-02-04
 slug: foundation-model-selection-ai-testing
-excerpt: "You chose mabl for self-healing tests. But which AI model powers it, and does it matter? Foundation model selection affects capability, cost, and latency—yet most teams treat it as a black box. Here's how to think about the AI behind your AI testing tools."
+excerpt: "You chose mabl for self-healing tests. But which AI model powers it, and does it matter? Foundation model selection affects capability, cost, and latency, yet most teams treat it as a black box. Here's how to think about the AI behind your AI testing tools."
 tags: [testing, ai, foundation-models, llm, benchmarking, cost-optimization]
 ---
 
-**In our [previous article]({{ site.baseurl }}/regression-testing-ai-sdlc/)** on AI regression testing, we explored tools like mabl, Applitools, and Functionize—platforms that promise self-healing tests, autonomous generation, and intelligent prioritization. But there's a question most teams never ask: *Which AI model powers these tools, and does it matter?*
+**In our [previous article]({{ site.baseurl }}/regression-testing-ai-sdlc/)** on AI regression testing, we explored tools like mabl, Applitools, and Functionize, platforms that promise self-healing tests, autonomous generation, and intelligent prioritization. But there's a question most teams never ask: *Which AI model powers these tools, and does it matter?*
 
 The answer is yes—and it matters more than you think.
 
@@ -49,9 +49,9 @@ The pattern isn't "more expensive = better." It's "different models for differen
 
 Foundation models vary dramatically in their strengths:
 
-**Security analysis.** GPT-5.2's 92.4% on GPQA Diamond (a graduate-level reasoning benchmark) may help with complex reasoning steps in security analysis—though GPQA is not a security-specific benchmark. For security-focused test generation—finding SQL injection vectors, authentication bypasses, authorization flaws—validate with security-specific evals (OWASP-style cases, internal red-team prompts). Claude Opus 4.5's 80.9% on SWE-Bench makes it strong for code-aware tests that require deep codebase understanding.
+**Security analysis.** GPT-5.2's 92.4% on GPQA Diamond (a graduate-level reasoning benchmark) may help with complex reasoning steps in security analysis (though GPQA is not a security-specific benchmark). For security-focused test generation: finding SQL injection vectors, authentication bypasses, authorization flaws: validate with security-specific evals (OWASP-style cases, internal red-team prompts). Claude Opus 4.5's 80.9% on SWE-Bench makes it strong for code-aware tests that require deep codebase understanding.
 
-**Code understanding.** Claude Opus 4.5 achieves the highest SWE-Bench score of any model (80.9%), meaning it's better at understanding real-world codebases. For tests that need deep comprehension of your application's architecture—integration tests, API contract tests—this matters.
+**Code understanding.** Claude Opus 4.5 achieves the highest SWE-Bench score of any model (80.9%), meaning it's better at understanding real-world codebases. For tests that need deep comprehension of your application's architecture: integration tests, API contract tests, this matters.
 
 **Speed vs. depth.** Claude Haiku 4.5 is surprisingly effective: in [Qodo's benchmark of 400 real PRs](https://www.qodo.ai/blog/thinking-vs-thinking-benchmarking-claude-haiku-4-5-and-sonnet-4-5-on-400-real-prs/), Haiku beat Claude Sonnet 4.5 in 58% of comparisons while being 3× cheaper. For high-volume test triage or documentation-only changes, Haiku is ideal.
 
@@ -67,11 +67,11 @@ The cost difference is staggering. Using [Factory's pricing](https://docs.factor
 
 Same $20/month, but you get **8× more GLM tokens than Opus tokens**. For teams with high-volume test generation, this compounds quickly.
 
-*Pricing structures vary by platform. Factory and Windsurf use credit multipliers against subscription tiers; OpenCode Zen uses per-token rates. The comparisons above illustrate relative cost differences—always verify with your provider.*
+*Pricing structures vary by platform. Factory and Windsurf use credit multipliers against subscription tiers; OpenCode Zen uses per-token rates. The comparisons above illustrate relative cost differences, always verify with your provider.*
 
 ### Platform pricing varies
 
-The Factory multipliers above are one pricing model, but different platforms structure costs differently. Windsurf Cascade uses a credit system where models consume different amounts per prompt—and some frontier models are entirely free. OpenCode Zen offers direct per-token pricing with several models available at no cost during evaluation periods.
+The Factory multipliers above are one pricing model, but different platforms structure costs differently. Windsurf Cascade uses a credit system where models consume different amounts per prompt, and some frontier models are entirely free. OpenCode Zen offers direct per-token pricing with several models available at no cost during evaluation periods.
 
 | Model | Windsurf Credits | Factory Multiplier | OpenCode Zen ($/1M tokens) |
 |-------|------------------|-------------------|---------------------------|

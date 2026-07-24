@@ -25,7 +25,7 @@ Most agent stacks today revolve around two primitives:
 - **Prompts**: global system prompts, per‑task instructions, or hidden “policies” describing how the agent should behave.  
 - **Tools**: function calls or APIs exposed via OpenAPI schemas, MCP servers, or similar mechanisms.  
 
-This gives us “a brain with hands”, but it leaves out a third ingredient: **procedures**—how to reliably combine tools, domain knowledge, and local context into repeatable workflows.  
+This gives us “a brain with hands”, but it leaves out a third ingredient: **procedures**: how to reliably combine tools, domain knowledge, and local context into repeatable workflows.  
 
 Anthropic's Agent Skills are a formalization of that missing layer. At their simplest, a Skill is:
 
@@ -75,7 +75,7 @@ This shift from prompts to Skills changes the human-AI dynamic in three ways:
 
 1. **From explaining to installing:** Instead of walking your AI partner through the same workflow repeatedly, you "install" that capability once and invoke it when needed. The conversation shifts from "here's how to do X" to "let's apply our X workflow to this case."
 
-2. **From implicit to explicit:** Skills force you to make tacit knowledge explicit. You can't just "wing it" with vague instructions—the format requires clear, reusable procedures. This creates better artifacts for both human and AI collaborators.
+2. **From implicit to explicit:** Skills force you to make tacit knowledge explicit. You can't just "wing it" with vague instructions, the format requires clear, reusable procedures. This creates better artifacts for both human and AI collaborators.
 
 3. **From solo to collective:** A Skill library becomes a shared resource. My "literature review" Skill can help your AI partner, and vice versa. We're not just building personal assistants—we're building a commons of collaborative capabilities.
 
@@ -136,7 +136,7 @@ There is still plenty of room for divergence—how tools are bound, how evaluati
 
 Skills sit between models and orchestration frameworks, playing a unique role: they're legible to both humans (as Markdown + code) and agents (as loadable instructions). This makes Skills a natural home for standard operating procedures, runbooks, and institutional knowledge—artifacts that live at the boundary between human and machine understanding.
 
-As more systems adopt Skills, it becomes natural to talk about agent capabilities in terms of installed Skills—similar to how we describe a server in terms of installed services.
+As more systems adopt Skills, it becomes natural to talk about agent capabilities in terms of installed Skills, similar to how we describe a server in terms of installed services.
 
 ---
 
@@ -152,7 +152,7 @@ That has several benefits:
 
 - You avoid re‑implementing the same workflows across multiple agents.  
 - You can incrementally improve a Skill (e.g. “JIRA triage”) and immediately benefit every agent that uses it.  
-- Upgrades to the underlying model or orchestration framework don’t require rewriting domain logic—only updating the Skills when desired.  
+- Upgrades to the underlying model or orchestration framework don’t require rewriting domain logic, only updating the Skills when desired.  
 
 This is analogous to the microservices transition in software: instead of huge monoliths, we get smaller, reusable services. Here, instead of huge agent prompts and flows, we get smaller, reusable Skills.
 
@@ -175,7 +175,7 @@ If multiple vendors adopt the open standard, Skills become a **transfer medium**
 - Customers could install these Skills into their preferred agent platform (Claude, ChatGPT, IDE agents) and combine them with internal Skills.  
 - Third‑party developers could publish domain‑specific Skills (e.g. tax preparation, compliance checks) much like today’s SDKs or plugins.  
 
-This points toward a **Skills ecosystem** with marketplaces, open‑source repositories, and curation—raising familiar questions about quality, security, and governance.
+This points toward a **Skills ecosystem** with marketplaces, open‑source repositories, and curation, raising familiar questions about quality, security, and governance.
 
 ---
 
@@ -193,11 +193,11 @@ Both are portable: the same Skills work across different Claude Code projects, d
 
 ### What we're discovering
 
-**The boundary between Skill and Tool is fuzzy.** Some workflows feel like they should be Skills (procedures) but actually work better as Tools (function calls). "Crafting commits" works well as a Skill because it's primarily instructional with some tool use. But a "search the web" capability might be better as a direct Tool. These experiments are helping us refine a mental model for when something wants to be a function, a prompt, or a Skill—figuring out which is which requires trial and error.
+**The boundary between Skill and Tool is fuzzy.** Some workflows feel like they should be Skills (procedures) but actually work better as Tools (function calls). "Crafting commits" works well as a Skill because it's primarily instructional with some tool use. But a "search the web" capability might be better as a direct Tool. These experiments are helping us refine a mental model for when something wants to be a function, a prompt, or a Skill; figuring out which is which requires trial and error.
 
 **Skills reveal hidden assumptions.** Writing a Skill for "crafting commits" forced us to make explicit rules we'd been applying intuitively. What counts as a "breaking change"? When is Co-Authored-By required? The process of creating the Skill improved our own understanding of the workflow.
 
-**Skills need versions, not just updates.** When you change a Skill, you're changing how your AI partner behaves in all future conversations. We've learned to version Skills explicitly and test changes before rolling them out—a Skill that works differently than yesterday can be confusing for both humans and agents.
+**Skills need versions, not just updates.** When you change a Skill, you're changing how your AI partner behaves in all future conversations. We've learned to version Skills explicitly and test changes before rolling them out (a Skill that works differently than yesterday can be confusing for both humans and agents).
 
 **Collaboration requires shared vocabulary.** The most effective Skills use consistent terminology that matches how we actually talk about the work. When the Skill language diverges from our natural language, the AI feels more like a tool and less like a partner.
 
@@ -218,7 +218,7 @@ Anthropic explicitly call out that Skills can embed code, external dependencies,
 Treating Skills as infrastructure primitives implies treating them as part of the **security and compliance surface**:
 
 - **Review and approval**: organizations will need processes to review new Skills before they are available in production agents.  
-- **Scopes and permissions**: Skills should run with least privilege—limited tools, limited data access, clear boundaries.  
+- **Scopes and permissions**: Skills should run with least privilege: limited tools, limited data access, clear boundaries.  
 - **Provenance and signing**: as Skills move between organizations and vendors, provenance (who authored this?) and integrity (has it been tampered with?) become important.  
 - **Monitoring and kill‑switches**: the ability to quickly disable or patch a misbehaving Skill across all agents.  
 
@@ -230,7 +230,7 @@ The supply chain analogy is worth extending. Skills share characteristics with b
 
 This dual nature creates new attack surfaces. A malicious npm package typically executes code; a malicious Skill could manipulate the model's behavior through subtle prompt engineering, embedding instructions that cause the agent to exfiltrate data when triggered by specific phrases.
 
-This suggests governance strategies closer to container registries than package managers: immutable tags, content-addressable storage, signed manifests, and clear provenance chains. A `Skill.lock` file pinning specific versions—much like `package-lock.json` or Containerfile hashes—may become standard practice.
+This suggests governance strategies closer to container registries than package managers: immutable tags, content-addressable storage, signed manifests, and clear provenance chains. A `Skill.lock` file pinning specific versions (much like `package-lock.json` or Containerfile hashes), may become standard practice.
 
 In other words, Skills pull long‑standing software supply‑chain questions into the agent world, but with new wrinkles: the artifact itself can be intelligent, and the execution environment is a model that can be socially engineered.
 
