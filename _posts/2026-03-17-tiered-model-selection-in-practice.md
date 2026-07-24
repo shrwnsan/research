@@ -19,7 +19,7 @@ We implemented a three-tier AI code review pipeline in GitHub Actions that route
 
 But pseudocode is comfortable. Production is where ideas get tested.
 
-So we built it. The [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — an open-source aggregator for Claude Code plugins — became our testing ground. Every pull request now flows through a tiered AI review pipeline that routes to different models based on complexity. Three tiers. Three AI agents. Three different cost profiles.
+So we built it. The [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) (an open-source aggregator for Claude Code plugins—became our testing ground. Every pull request now flows through a tiered AI review pipeline that routes to different models based on complexity. Three tiers. Three AI agents. Three different cost profiles.
 
 It worked. Then it silently broke. Then we fixed it. Here's the full story.
 
@@ -44,7 +44,7 @@ if pr_context.affects_core_architecture:
     return "claude-opus-4-5"      # Tier 3
 ```
 
-Translating that into GitHub Actions workflows — where timing, event triggers, and cross-workflow communication actually matter — told a different story.
+Translating that into GitHub Actions workflows (where timing, event triggers, and cross-workflow communication actually matter). Told a different story.
 
 ---
 
@@ -83,13 +83,13 @@ flowchart TD
 
 Four workflow files make this work:
 
-1. **`route-pr-to-model.yml`** — The router. Analyzes every PR for file types, line count, security signals, and critical paths. Outputs a tier (1, 2, or 3) and a reason.
+1. **`route-pr-to-model.yml`**: The router. Analyzes every PR for file types, line count, security signals, and critical paths. Outputs a tier (1, 2, or 3) and a reason.
 
-2. **`amp-review-tier1.yml`** — Tier 1 executor. Uses [Amp Code Action](https://ampcode.com) in `rush` mode for documentation-only and minimal config changes. Fast, focused, cheap.
+2. **`amp-review-tier1.yml`**: Tier 1 executor. Uses [Amp Code Action](https://ampcode.com) in `rush` mode for documentation-only and minimal config changes. Fast, focused, cheap.
 
-3. **`claude-auto-pr-review.yml`** — Tier 2 executor. Uses Claude Code Action pointed at [Z.ai's API proxy](https://z.ai/model-api) serving GLM-5. Waits for CI to pass, then runs a full code review.
+3. **`claude-auto-pr-review.yml`**: Tier 2 executor. Uses Claude Code Action pointed at [Z.ai's API proxy](https://z.ai/model-api) serving GLM-5. Waits for CI to pass, then runs a full code review.
 
-4. **`droid-review.yml`** — Tier 3 executor. Uses [Factory Droid](https://docs.factory.ai/) with GPT-5.2 for security-critical and architecturally significant changes.
+4. **`droid-review.yml`**: Tier 3 executor. Uses [Factory Droid](https://docs.factory.ai/) with GPT-5.2 for security-critical and architecturally significant changes.
 
 ### The routing logic
 
@@ -115,7 +115,7 @@ if (hasSecurity && hasCriticalPaths) {
 // Everything else: Tier 2 (default)
 ```
 
-What makes this work in practice is the `hasCriticalPaths` check — it matches against specific directory patterns (`src/services`, `pages/api`, `.github/workflows`) rather than relying on abstract "risk scores." The PR itself tells you what it touches.
+What makes this work in practice is the `hasCriticalPaths` check: it matches against specific directory patterns (`src/services`, `pages/api`, `.github/workflows`) rather than relying on abstract "risk scores." The PR itself tells you what it touches.
 
 ---
 
@@ -129,11 +129,11 @@ Here's where theory diverges from practice. The previous article's framework map
 | **Tier 2:** GPT-5.2 | **GLM-5** via Z.ai proxy | GLM-5 scores 77.8 on SWE-Bench Verified at a fraction of GPT-5.2's cost. Z.ai's Anthropic-compatible proxy lets us use `claude-code-action` with GLM-5 underneath |
 | **Tier 3:** Claude Opus 4.5 | **Factory Droid** (GPT-5.2) | Factory's Droid action handles deep analysis natively; Opus 4.5 would require custom orchestration |
 
-The lesson: framework-level thinking is useful, but platform availability drives implementation. You don't pick the ideal model — you pick the best model *you can actually deploy* in your CI environment.
+The lesson: framework-level thinking is useful, but platform availability drives implementation. You don't pick the ideal model—you pick the best model *you can actually deploy* in your CI environment.
 
 ### The Z.ai proxy pattern
 
-One practical insight worth highlighting: the Tier 2 workflow uses Claude Code Action — an action designed for Anthropic's API — but points it at Z.ai's proxy:
+One practical insight worth highlighting: the Tier 2 workflow uses Claude Code Action (an action designed for Anthropic's API) but points it at Z.ai's proxy:
 
 ```yaml
 env:
@@ -151,7 +151,7 @@ This means we get the ergonomics of `claude-code-action` (PR context injection, 
 The system went live. Every PR got a routing comment:
 
 > 📊 **PR Routing Decision**
-> **Tier 2** — Standard complexity (Claude with GLM-5)
+> **Tier 2**: Standard complexity (Claude with GLM-5)
 > **Reason:** Focused critical path change
 
 The security scan ran. The routing worked correctly. But the actual code review? **Never executed.** For weeks.
@@ -165,7 +165,7 @@ We had two independent bugs, both invisible unless you were specifically looking
 
 ### Bug 1: The CI race condition
 
-The Tier 2 review workflow triggers on `workflow_run` — it starts when the Route PR workflow *completes*. The routing takes about 30 seconds. But CI takes *minutes*.
+The Tier 2 review workflow triggers on `workflow_run`: it starts when the Route PR workflow *completes*. The routing takes about 30 seconds. But CI takes *minutes*.
 
 The original code checked CI status **once**:
 
@@ -239,7 +239,7 @@ on:
 
 Tier 1 is *designed for doc-only PRs*. But the routing workflow that *triggers* Tier 1 explicitly *ignores* documentation paths. Route PR never fires for doc-only changes → Tier 1 never triggers.
 
-The fix was removing `paths-ignore` entirely. All PRs get routed — the *routing logic itself* decides what's Tier 1, not the trigger filter.
+The fix was removing `paths-ignore` entirely. All PRs get routed—the *routing logic itself* decides what's Tier 1, not the trigger filter.
 
 These two bugs are documented in [PR #115](https://github.com/shrwnsan/claude-marketplace-registry/pull/115).
 
@@ -247,9 +247,9 @@ These two bugs are documented in [PR #115](https://github.com/shrwnsan/claude-ma
 
 ## What the bugs taught us
 
-The silent failure pattern — where the system *appears functional* but is *doing nothing* — is particularly dangerous for AI-in-CI pipelines. Three observations:
+The silent failure pattern (where the system *appears functional* but is *doing nothing*) is particularly dangerous for AI-in-CI pipelines. Three observations:
 
-**1. Observability gaps are amplified by multi-workflow architectures.** When one workflow triggers another via `workflow_run`, you lose the linear visibility you get from a single workflow. Each step looks fine in isolation. The gap is between workflows — the race condition between Route PR completing and CI still running.
+**1. Observability gaps are amplified by multi-workflow architectures.** When one workflow triggers another via `workflow_run`, you lose the linear visibility you get from a single workflow. Each step looks fine in isolation. The gap is between workflows, the race condition between Route PR completing and CI still running.
 
 **2. "Worked in theory" is the most dangerous state.** The routing logic was correct. The tier assignments were correct. The review prompts were correct. The *orchestration timing* was wrong. Integration testing for CI pipelines means testing the *timing and triggers*, not just the logic.
 
@@ -265,9 +265,9 @@ While debugging the workflow, we also upgraded Tier 2 from GLM-4.7 to GLM-5:
 |-----------|---------|-------|
 | SWE-Bench Verified | 73.8 | **77.8** |
 | Terminal-Bench 2.0 | 41.0 | **56.2** |
-| Parameters | — | 744B (40B active) |
+| Parameters |—| 744B (40B active) |
 
-The upgrade was a single-line change in the workflow (`glm-5` instead of `glm-4.7`), thanks to the Z.ai proxy pattern. No structural changes, no new API integrations. This is one of the benefits of the proxy approach — model upgrades are configuration changes, not code changes.
+The upgrade was a single-line change in the workflow (`glm-5` instead of `glm-4.7`), thanks to the Z.ai proxy pattern. No structural changes, no new API integrations. This is one of the benefits of the proxy approach, model upgrades are configuration changes, not code changes.
 
 This also validates a key point from the original article: the model landscape moves fast, and your infrastructure should make model swaps trivial. If upgrading a model requires a new action, new API client, or new authentication flow, you'll always be behind.
 
@@ -301,7 +301,7 @@ If you're considering a similar setup, here's what we'd do differently from day 
 
 **Make model changes config-only.** The Z.ai proxy pattern (or any Anthropic-compatible proxy) means model upgrades are environment variable changes. Design for this from the start.
 
-**Log the routing decision visibly.** Our routing comment on each PR (`📊 PR Routing Decision: Tier 2 — Focused critical path change`) turned out to be invaluable for debugging. It's also useful for contributors who want to understand why their PR got a particular level of review.
+**Log the routing decision visibly.** Our routing comment on each PR (`📊 PR Routing Decision: Tier 2: Focused critical path change`) turned out to be invaluable for debugging. It's also useful for contributors who want to understand why their PR got a particular level of review.
 
 ---
 
@@ -314,15 +314,15 @@ The pipeline works, but there's more to explore:
 - **Review quality scoring.** Are Tier 3 reviews actually catching more issues than Tier 2? We need data to validate the tier boundaries.
 - **Model-specific prompts.** Currently all tiers use similar review prompts. Tier 1 could be more aggressive about saying "looks fine" quickly, while Tier 3 could be prompted for deeper architectural analysis.
 
-The broader point: tiered model selection isn't a one-time configuration. It's an ongoing optimization problem — you're tuning the boundaries, the models, and the prompts as you learn what each tier actually catches.
+The broader point: tiered model selection isn't a one-time configuration. It's an ongoing optimization problem—you're tuning the boundaries, the models, and the prompts as you learn what each tier actually catches.
 
 ---
 
 ## The meta-lesson
 
-The original article argued that foundation model selection is "the hidden layer of AI testing infrastructure." Building this pipeline confirmed that — but added a layer we didn't anticipate: **orchestration is as important as model choice.**
+The original article argued that foundation model selection is "the hidden layer of AI testing infrastructure." Building this pipeline confirmed that—but added a layer we didn't anticipate: **orchestration is as important as model choice.**
 
-The best model in the world doesn't help if the workflow that invokes it never runs. The cheapest model doesn't save money if a race condition means it silently skips every PR. The theory of tiered selection is sound, but the implementation surface — GitHub Actions event triggers, `workflow_run` timing, artifact passing, CI status polling — introduces failure modes that exist *between* the tiers, not within them.
+The best model in the world doesn't help if the workflow that invokes it never runs. The cheapest model doesn't save money if a race condition means it silently skips every PR. The theory of tiered selection is sound, but the implementation surface (GitHub Actions event triggers, `workflow_run` timing, artifact passing, CI status polling) introduces failure modes that exist *between* the tiers, not within them.
 
 If you're evaluating AI testing tools and asking "which model do they use?" (as our previous article recommended), add a follow-up question: *"And what happens when the orchestration between models fails silently?"*
 
@@ -330,13 +330,13 @@ If you're evaluating AI testing tools and asking "which model do they use?" (as 
 
 ## References
 
-1. [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry) — The open-source project implementing this pipeline
-2. [PR #115: Fix tiered PR review workflow](https://github.com/shrwnsan/claude-marketplace-registry/pull/115) — The bug investigation and fix
-3. [The Hidden Layer: Foundation Model Selection]({{ site.baseurl }}/foundation-model-selection-ai-testing/) — The theory behind tiered model selection
-4. [Amp Code Action](https://ampcode.com) — Tier 1 review action
-5. [Claude Code Action](https://github.com/anthropics/claude-code-action) — Tier 2 review action
-6. [Factory Droid Action](https://github.com/Factory-AI/droid-action) — Tier 3 review action
-7. [Z.ai API Documentation](https://docs.z.ai/guides/llm/glm-5) — GLM-5 via Anthropic-compatible proxy
+1. [Claude Marketplace Registry](https://github.com/shrwnsan/claude-marketplace-registry): The open-source project implementing this pipeline
+2. [PR #115: Fix tiered PR review workflow](https://github.com/shrwnsan/claude-marketplace-registry/pull/115): The bug investigation and fix
+3. [The Hidden Layer: Foundation Model Selection]({{ site.baseurl }}/foundation-model-selection-ai-testing/): The theory behind tiered model selection
+4. [Amp Code Action](https://ampcode.com): Tier 1 review action
+5. [Claude Code Action](https://github.com/anthropics/claude-code-action): Tier 2 review action
+6. [Factory Droid Action](https://github.com/Factory-AI/droid-action): Tier 3 review action
+7. [Z.ai API Documentation](https://docs.z.ai/guides/llm/glm-5): GLM-5 via Anthropic-compatible proxy
 
 ---
 
