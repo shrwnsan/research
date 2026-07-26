@@ -107,7 +107,7 @@ This is the move we keep arriving at, and it's worth naming: **prefer architectu
 
 This matters, because incident writeups have a way of overreaching.
 
-We are **not** claiming z.ai is unreliable. It remains our primary provider; this was a degradation event on one day, not a verdict. We're also not claiming agents are bad. We *are* claiming that for this pipeline — bounded inputs, deterministic post-processing, a job that has to ship every morning — the agent loop's signature strengths (deciding what to inspect, recovering from surprise) were exactly the surface area that failed.
+This isn't a verdict on z.ai. It's one of our most-used providers; the post-mortem is about a single degraded day, and about one endpoint's telemetry making a bad day worse. We're also not claiming agents are bad. We *are* claiming that for this pipeline — bounded inputs, deterministic post-processing, a job that has to ship every morning — the agent loop's signature strengths (deciding what to inspect, recovering from surprise) were exactly the surface area that failed.
 
 We are **not** claiming the orchestrator is free. It trades adaptivity for reliability. For tasks that genuinely require exploration — debugging an unfamiliar system, open-ended research — the agent loop is the right tool, and the failures above are the price of its power. Daily Sip is not that task. Its context is bounded and known; its downstream stages are deterministic. It's a job for a decisive judge with blinders on, not an explorer with a notebook. ([We've made this argument before]({{ site.baseurl }}/the-simplification-paradox/); this is what it looks like when the agent's fragility, not just its quality, finally bites.)
 
