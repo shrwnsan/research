@@ -46,17 +46,15 @@ Manual recovery followed — regenerate via the standalone orchestrator on a hea
 
 Notice what's absent from that timeline: a crash, a stack trace, an alert. The system was *busy*. It was producing outputs. A prior run had even declared victory. Everything looked like work happening. It was work happening — just not the work that delivers a newsletter.
 
-## Failure mode 1: the compressor that grew the context
+## Failure mode 1: the compressor that ran away
 
-This is the one that still fascinates us.
+This is the one that still fascinates us — and the one we later understood better.
 
-The agent's conversation context sat at roughly 65K tokens, crossing the 64K threshold that triggers automatic compression. Compression is supposed to summarize the conversation down so the agent can keep going. Here's what it actually did:
+The agent's conversation context sat near the 64K threshold that triggers automatic compression. Compression is supposed to summarize the conversation down so the agent can keep going. Instead it looped: each pass, the token count climbed (~65K → ~73K), the message count didn't drop (`15 → 15`, `23 → 23`), and the system compressed again — until the 60-call budget ran out.
 
-> Each compression pass produced a *larger* context (~73K) without reducing the message count (`messages 15→15`, `23→23`). The loop: context too large → compress → compression makes it larger → still too large → compress again — until the 60-call budget exhausted.
+Our first read was that the summarizer was adding tokens. The deeper cause was more interesting, and more general: **the endpoint returned no real streaming token usage** (`awaiting_real_usage=true`), so the framework was steering its compressor off a climbing `rough_tokens` *estimate*, not a measurement. Each pass the estimate crept upward; the compressor kept firing on a number it had no way to verify. Some real growth may have contributed, but the dominant driver was estimate drift, not summarizer bloat. We've since moved the agent path to the provider's other endpoint, which returns real usage.
 
-Token count went ~65,150 → ~73,809. The summarizer was *adding* tokens. And because each "compressed" result was still over threshold, the system compressed again. And again.
-
-The hidden assumption here is almost universal: **every framework that auto-compresses context on a threshold assumes compression is monotonic** — that each pass strictly reduces size. We'd never questioned it. Why would we? Summaries are shorter than their sources. Except when the summarizer is itself degraded, fed an already-corrupted context, or simply bad at its job, the assumption inverts: compression *grows* the context, and the feedback loop has no escape valve except the iteration budget. There's no "compression failed, give up" branch, because compression didn't fail — it returned a context, dutifully. It was just the wrong direction.
+The hidden assumption here is almost universal, and it has two halves. Frameworks that auto-compress on a threshold assume compression is monotonic — that each pass reduces size — *and* they assume the size signal they compress against is accurate. A bad summarizer breaks the first half; a blind gauge breaks the second. Either way the feedback loop has no escape valve but the iteration budget. There's no "compression failed, give up" branch, because from the system's point of view compression didn't fail — it returned a context, dutifully, and steered off a number that was climbing for the wrong reason.
 
 ## Failure mode 2: truncation disguised as a tool call
 
