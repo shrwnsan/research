@@ -9,7 +9,7 @@ tags: [ai, agentic-systems, llm, incident, observability, case-study, production
 
 ## TL;DR
 
-[Daily Sip](https://sipr.cc) is a daily multilingual tech newsletter: every morning it reads the top 30 Hacker News stories, picks 7, summarizes them, and ships the result across seven languages as text and audio. Real readers, real inboxes, real consequences the morning it breaks.
+Daily Sip is a daily multilingual tech newsletter: every morning it reads the top 30 Hacker News stories, picks 7, summarizes them, and ships the result across seven languages as text and audio. Real readers, real inboxes, real consequences the morning it breaks.
 
 One morning in late July 2026, it broke. And here's the unsettling part: **nothing threw an error.** Under provider degradation, three failure modes we'd never seen in isolation arrived together, and each one was invisible. The signature wasn't an exception. It was small outputs and confident-sounding status reports.
 
@@ -23,7 +23,7 @@ One morning in late July 2026, it broke. And here's the unsettling part: **nothi
 
 ## Some context, then the night it broke
 
-In [our previous article]({{ site.baseurl }}/the-simplification-paradox/) we replaced Daily Sip's multi-step AI agent with a single-prompt orchestrator and found — to our surprise — that the simpler system was editorially *better*. In [the follow-up]({{ site.baseurl }}/evaluating-the-unevaluable/) we built the methodology to measure that honestly, because "editorial quality" has no ground truth.
+In [our previous article]({{ site.baseurl }}/the-simplification-paradox/) we replaced [Daily Sip](https://sipr.cc)'s multi-step AI agent with a single-prompt orchestrator and found — to our surprise — that the simpler system was editorially *better*. In [the follow-up]({{ site.baseurl }}/evaluating-the-unevaluable/) we built the methodology to measure that honestly, because "editorial quality" has no ground truth.
 
 One thread ran through both: a growing distrust of the long-running agent loop as a production dependency. It's stateful, opaque, and holds together beautifully until the morning it doesn't. This is the story of that morning.
 
