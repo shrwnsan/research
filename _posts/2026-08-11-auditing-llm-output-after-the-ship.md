@@ -9,7 +9,7 @@ tags: [ai, llm-evaluation, methodology, reliability, observability, case-study]
 
 ## TL;DR
 
-[Daily Sip](https://sipr.cc) is a multilingual Hacker News briefing: every morning, an LLM picks seven stories, writes a short summary of each, translates them into six other languages, and ships the lot as text and audio. It had a validator that ran before every send. The validator was thorough about *shape*—right number of files, right date, audio under the length cap, the audio index matching the headline picks. It never once checked *truth*.
+Daily Sip is a multilingual Hacker News briefing: every morning, an LLM picks seven stories, writes a short summary of each, translates them into six other languages, and ships the lot as text and audio. It had a validator that ran before every send. The validator was thorough about *shape*—right number of files, right date, audio under the length cap, the audio index matching the headline picks. It never once checked *truth*.
 
 So we audited it. The output was around 95% factually accurate, which sounds great until you notice the qualifier: the errors it did make were not random. They clustered into a handful of repeatable failure modes, and the worst of them was a meaning-changing word swap on a sensitive policy story. Nothing was catching any of it.
 
@@ -19,7 +19,7 @@ This is the story of where the risk actually lived, why the gate was wrong, and 
 
 ## Where the risk lived
 
-If you've followed the earlier posts, you know Daily Sip's history. We replaced a long-running AI agent with a single-prompt orchestrator and found the simpler system [editorially *better*]({{ site.baseurl }}/the-simplification-paradox/). We built a [scoreboard to measure that honestly]({{ site.baseurl }}/evaluating-the-unevaluable/). What we hadn't done was ask whether the prose itself was true.
+If you've followed the earlier posts, you know [Daily Sip](https://sipr.cc)'s history. We replaced a long-running AI agent with a single-prompt orchestrator and found the simpler system [editorially *better*]({{ site.baseurl }}/the-simplification-paradox/). We built a [scoreboard to measure that honestly]({{ site.baseurl }}/evaluating-the-unevaluable/). What we hadn't done was ask whether the prose itself was true.
 
 Two parts of the output had structurally different risk profiles, and the audit made that obvious.
 
