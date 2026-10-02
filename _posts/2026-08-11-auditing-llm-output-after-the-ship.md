@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "The Quality Gate That Killed Itself: Why I Audit My LLM Pipeline After It Ships"
+title: "The Quality Gate That Killed Itself: Why We Audit Our LLM Pipeline After It Ships"
 date: 2026-08-11
 slug: auditing-llm-output-after-the-ship
-excerpt: "Daily Sip, our multilingual Hacker News briefing, can pass every structural gate and still ship a confidently wrong summary — because the only unguarded surface is the free text itself. The obvious fix is a second LLM that checks each output before it sends. Here's why that gate was the wrong answer, what an adversarial review did to it, and the shape that actually worked: a decoupled audit that runs after delivery and can never block the send."
+excerpt: "Daily Sip, our multilingual Hacker News briefing, can pass every structural gate and still ship a confidently wrong summary—because the only unguarded surface is the free text itself. The obvious fix is a second LLM that checks each output before it sends. Here's why that gate was the wrong answer, what an adversarial review did to it, and the shape that actually worked: a decoupled audit that runs after delivery and can never block the send."
 tags: [ai, llm-evaluation, methodology, reliability, observability, case-study]
 ---
 
 ## TL;DR
 
-[Daily Sip](https://sipr.cc) is a multilingual Hacker News briefing: every morning, an LLM picks seven stories, writes a short summary of each, translates them into six other languages, and ships the lot as text and audio. It had a validator that ran before every send. The validator was thorough about *shape* — right number of files, right date, audio under the length cap, the audio index matching the headline picks. It never once checked *truth*.
+[Daily Sip](https://sipr.cc) is a multilingual Hacker News briefing: every morning, an LLM picks seven stories, writes a short summary of each, translates them into six other languages, and ships the lot as text and audio. It had a validator that ran before every send. The validator was thorough about *shape*—right number of files, right date, audio under the length cap, the audio index matching the headline picks. It never once checked *truth*.
 
-So I audited it. The output was around 95% factually accurate, which sounds great until you notice the qualifier: the errors it did make were not random. They clustered into a handful of repeatable failure modes, and the worst of them was a meaning-changing word swap on a sensitive policy story. Nothing was catching any of it.
+So we audited it. The output was around 95% factually accurate, which sounds great until you notice the qualifier: the errors it did make were not random. They clustered into a handful of repeatable failure modes, and the worst of them was a meaning-changing word swap on a sensitive policy story. Nothing was catching any of it.
 
-The obvious fix was a gate: a second LLM reads each summary against its source and blocks the send on a contradiction. I designed that gate. Then an adversarial review killed it, for three reasons that all turned out to be correct. The shape that actually worked was the opposite of a gate: a check that runs *after* delivery, can never block or delay the send, and fails open.
+The obvious fix was a gate: a second LLM reads each summary against its source and blocks the send on a contradiction. We designed that gate. Then an adversarial review killed it, for three reasons that all turned out to be correct. The shape that actually worked was the opposite of a gate: a check that runs *after* delivery, can never block or delay the send, and fails open.
 
 This is the story of where the risk actually lived, why the gate was wrong, and the silent-failure coda that came right after.
 
@@ -31,7 +31,7 @@ This is the first generalizable lesson. When you audit an LLM pipeline, separate
 
 ## The audit
 
-For a week of editions I checked every summary against its original article at the level of individual factual atoms: each number, date, version, name, quote, and superlative claim, verdicted as supported, contradicted, or ungrounded. Around 158 atoms, roughly 95% supported, zero fabricated quotes.
+For a week of editions we checked every summary against its original article at the level of individual factual atoms: each number, date, version, name, quote, and superlative claim, verdicted as supported, contradicted, or ungrounded. Around 158 atoms, roughly 95% supported, zero fabricated quotes.
 
 The interesting part was the 5%. Every error fit one of seven patterns. A meaning-changing word swap on a sensitive story. An invented version number on a thin source. A founder's product pitch amplified past what the post actually claimed. A "most-discussed" superlative that was checkable against the pool and wrong. The model wasn't hallucinating at random. It was filling specifics the source lacked, and it was worst exactly where the source was thinnest (readmes, pitch posts) or where a comparative claim could be verified against the pool but wasn't.
 
@@ -39,9 +39,9 @@ A clustered, repeatable failure mode is good news. It means you can catalogue it
 
 ## The gate that killed itself
 
-So: a second LLM, before the send, reading each summary against its source, blocking on a contradiction. Clean idea. I ran an adversarial review across three lenses (reliability, over-engineering, correctness) and it dismantled the design.
+So: a second LLM, before the send, reading each summary against its source, blocking on a contradiction. Clean idea. We ran an adversarial review across three lenses (reliability, over-engineering, correctness) and it dismantled the design.
 
-**The judge was anti-correlated with the only days it mattered.** The judge came from the same provider as the generator — z.ai — which we'd already seen [degrade silently]({{ site.baseurl }}/when-compression-makes-your-context-bigger/) on a bad morning. On the exact outage days when degraded generation was most likely to emit garbage, the judge was either down or grading the degraded model with a sibling of itself. The safety net was absent precisely when it was needed.
+**The judge was anti-correlated with the only days it mattered.** The judge came from the same provider as the generator—z.ai—which we'd already seen [degrade silently]({{ site.baseurl }}/when-compression-makes-your-context-bigger/) on a bad morning. On the exact outage days when degraded generation was most likely to emit garbage, the judge was either down or grading the degraded model with a sibling of itself. The safety net was absent precisely when it was needed.
 
 **The verifier was itself unverified.** Nothing checked that the judge's cited evidence actually appeared in the article. A confident wrong *supported* would have laundered a defect straight through, failing at the one class the gate existed to catch. A different provider reduces this; it doesn't eliminate it.
 
@@ -63,15 +63,15 @@ The deterministic layer came back too. The translation artifacts the audit found
 
 The audit shipped, wired into the daily verify step, and then, for a day, it silently didn't run.
 
-The reason was embarrassingly mundane. The pipeline runs its stage scripts from a deployed copy, not the repo. I'd merged the change and pulled, but the deployed copy was stale, so the new check step never executed. The delivery pipeline stayed green. Nothing errored. The check was simply absent, and the only signal was a trend log that never appeared.
+The reason was embarrassingly mundane. The pipeline runs its stage scripts from a deployed copy, not the repo. We'd merged the change and pulled, but the deployed copy was stale, so the new check step never executed. The delivery pipeline stayed green. Nothing errored. The check was simply absent, and the only signal was a trend log that never appeared.
 
-This is the most generalizable failure of the whole arc, and it belongs to the same family as the rest. The pipeline didn't fail loudly. It got quiet. A check that exists in the repo but not in the running system is not a check. The fix was a checklist with one rule that should never have needed writing: for wrapper changes, merged is not the same as live. The lesson, again, was to make the failure visible by construction — a trend log whose absence is itself the alarm.
+This is the most generalizable failure of the whole arc, and it belongs to the same family as the rest. The pipeline didn't fail loudly. It got quiet. A check that exists in the repo but not in the running system is not a check. The fix was a checklist with one rule that should never have needed writing: for wrapper changes, merged is not the same as live. The lesson, again, was to make the failure visible by construction—a trend log whose absence is itself the alarm.
 
 ## Observations, not truths
 
-I'm not claiming a post-delivery audit is always the right shape, or that an in-pipeline gate is always wrong. The decision turned on specifics: a single-provider setup (z.ai on both sides) where judge and generator correlate, a product where the cost of a blocked send exceeds the cost of a wrong summary, and a scale where the apparatus of a real gate wasn't justified. Change any of those and the answer changes. That's why the gate wasn't deleted, it was deferred behind explicit signals (defect-rate drift, scale, a reader-reported error, a provider change) rather than a calendar.
+We're not claiming a post-delivery audit is always the right shape, or that an in-pipeline gate is always wrong. The decision turned on specifics: a single-provider setup (z.ai on both sides) where judge and generator correlate, a product where the cost of a blocked send exceeds the cost of a wrong summary, and a scale where the apparatus of a real gate wasn't justified. Change any of those and the answer changes. That's why the gate wasn't deleted, it was deferred behind explicit signals (defect-rate drift, scale, a reader-reported error, a provider change) rather than a calendar.
 
-What I am claiming: audit where the risk lives, not where the gates are. Let an adversarial review delete your first answer. And when you ship the fix, check that it's actually running.
+What we are claiming: audit where the risk lives, not where the gates are. Let an adversarial review delete your first answer. And when you ship the fix, check that it's actually running.
 
 ---
 
