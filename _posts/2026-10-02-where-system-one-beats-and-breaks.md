@@ -111,11 +111,13 @@ Compare the new column to the agreement floor among your existing LLM columns be
 
 Pin model versions. The entire run is 39K tokens, so repeating it after any bump costs a fraction of a cent; there's no excuse for stale results.
 
+**Re-run, October 19, 2026.** We took our own advice. A second independent repeat—both prompt modes, all 17 companies, fresh run logs—reproduced the headline exactly: 41% verdict agreement in both modes, the served decision model still on jev-1.13.0 (unchanged since September), every starved row still flagged at the floor (0.02 text-only; 0.06–0.09 in knowledge mode), healthy-row evidence medians of 0.12 and 0.21, and the same ~39K input-token economics. Nothing moved. The refusal result—the least likely to replicate cleanly if it were an artifact—is now the most replicated number in the benchmark.
+
 ---
 
 *This investigation was a collaboration between human curiosity and AI execution—the pipeline, the ground truth, and the skepticism were ours; the column runs, the agreement matrix, and the drafting were the machine's. The finding that survived review lost the job we benchmarked it for, and it's the most useful result the exercise has produced.*
 
-*Method notes: single full-text run per company per mode · five-level score rubric with concrete level descriptions · composite weights held constant across columns · decision-model pricing at published list rate · all figures from the run logs of September 20, 2026.*
+*Method notes: single full-text run per company per mode · five-level score rubric with concrete level descriptions · composite weights held constant across columns · decision-model pricing at published list rate · all figures from the run logs of September 20, 2026; the re-run addendum's figures from its own run logs of October 19, 2026.*
 
 ---
 
