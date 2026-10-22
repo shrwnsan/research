@@ -1,0 +1,62 @@
+# Update log entries for "Where System One Beats and Breaks", rendered by
+# _includes/update-log.html. Keep newest first: the include renders in list
+# order and the count badge reads this list's size. Each entry's `id` becomes
+# its permanent anchor (#update-<id>).
+#
+# Canonical fact slots per entry: Model · Verdict/agreement · Starved rows ·
+# Healthy-row medians · Economics. One-off comparisons go last with
+# `extra: true` (full-width row).
+entries:
+  - id: "2026-10-21"
+    date: "2026-10-21"
+    date_display: "21 Oct 2026"
+    type: "Version bump"
+    title: "jev-1.13.0 → jev-1.14.0 — verdicts hold, calibration sharpens"
+    facts:
+      - label: "Model"
+        value: "jev-1.14.0, pinned explicitly (jev-latest still serving 1.13.0 at run time)"
+      - label: "Agreement vs incumbent"
+        value: "35% text-only · 41% knowledge"
+      - label: "Starved rows"
+        value: "all 4 flagged — 0.01 text-only · 0.04–0.07 knowledge"
+      - label: "Healthy-row medians"
+        value: "0.07 text-only · 0.21 knowledge"
+      - label: "Economics"
+        value: "~39K input tokens per mode"
+      - label: "Verdict flips vs 1.13.0"
+        value: "1/17 per mode, both at the 40-point band edge"
+        extra: true
+    body: >-
+      The vendor billed 1.14.0 as "small, subtle improvements to everything."
+      On this benchmark that is nearly literal: one verdict moved per
+      mode—Gemini MODERATE→WEAK in text-only, Contentful WEAK→MODERATE in
+      knowledge—both a single band at the 40-point edge, and the
+      incumbent-agreement percentage moved only where that flip landed
+      (41%→35% is one row on a 17-row denominator). The refusal result
+      survives the bump intact: every starved row still flagged, now at a
+      lower floor (text-only median 0.12→0.07; knowledge median unchanged at
+      0.21). One operational note: any threshold calibrated on 1.13.0's
+      evidence scale wants re-derivation before reuse—the graded gate's floor
+      moved even though the flag did not.
+
+  - id: "2026-10-19"
+    date: "2026-10-19"
+    date_display: "19 Oct 2026"
+    type: "Re-run"
+    title: "Second independent repeat — nothing moved"
+    facts:
+      - label: "Model"
+        value: "jev-1.13.0, unchanged since September"
+      - label: "Verdict agreement"
+        value: "41% in both prompt modes"
+      - label: "Starved rows"
+        value: "0.02 text-only · 0.06–0.09 knowledge"
+      - label: "Healthy-row medians"
+        value: "0.12 text-only · 0.21 knowledge"
+      - label: "Economics"
+        value: "~39K input tokens per full run"
+    body: >-
+      We took our own advice: a second independent repeat, both prompt modes,
+      all 17 companies, fresh run logs. The headline reproduced exactly, and
+      the refusal result—the least likely to replicate cleanly if it were an
+      artifact—is now the most replicated number in the benchmark.
