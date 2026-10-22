@@ -8,7 +8,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-26.04 runners have no ruby-builder build for Ruby 3.3.4
+    # (setup-ruby 404s in the Setup step). Revisit 24.04→26.04 together with a
+    # deliberate Ruby bump, not silently via ubuntu-latest.
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout repository
