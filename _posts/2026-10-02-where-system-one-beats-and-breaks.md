@@ -113,11 +113,13 @@ Pin model versions. The entire run is 39K tokens, so repeating it after any bump
 
 **Re-run, October 19, 2026.** We took our own advice. A second independent repeat—both prompt modes, all 17 companies, fresh run logs—reproduced the headline exactly: 41% verdict agreement in both modes, the served decision model still on jev-1.13.0 (unchanged since September), every starved row still flagged at the floor (0.02 text-only; 0.06–0.09 in knowledge mode), healthy-row evidence medians of 0.12 and 0.21, and the same ~39K input-token economics. Nothing moved. The refusal result—the least likely to replicate cleanly if it were an artifact—is now the most replicated number in the benchmark.
 
+**Version bump, October 21, 2026.** The vendor billed 1.14.0 as "small, subtle improvements to everything," so we re-ran against it—pinned explicitly, since jev-latest was still serving 1.13.0 at run time. On this benchmark that billing is nearly literal: one verdict moved per mode (Gemini MODERATE→WEAK in text-only, Contentful WEAK→MODERATE in knowledge), each a single band at the 40-point edge, and that is the only place the incumbent-agreement number moved—41%→35% is one row on a 17-row denominator. Verdicts hold 16/17 per mode. The refusal result survives the bump intact: every starved row still flagged, now at a lower floor (0.01 text-only, median 0.12→0.07; 0.04–0.07 knowledge, median unchanged at 0.21). One operational note: any threshold calibrated on 1.13.0's evidence scale wants re-derivation before reuse—the graded floor moved even though the flag did not. Figures from the run logs of October 21, 2026; ~39K input tokens per mode.
+
 ---
 
 *This investigation was a collaboration between human curiosity and AI execution—the pipeline, the ground truth, and the skepticism were ours; the column runs, the agreement matrix, and the drafting were the machine's. The finding that survived review lost the job we benchmarked it for, and it's the most useful result the exercise has produced.*
 
-*Method notes: single full-text run per company per mode · five-level score rubric with concrete level descriptions · composite weights held constant across columns · decision-model pricing at published list rate · all figures from the run logs of September 20, 2026; the re-run addendum's figures from its own run logs of October 19, 2026.*
+*Method notes: single full-text run per company per mode · five-level score rubric with concrete level descriptions · composite weights held constant across columns · decision-model pricing at published list rate · all figures from the run logs of September 20, 2026; the re-run addendum's figures from its own run logs of October 19, 2026; the version-bump addendum's figures from its own run logs of October 21, 2026.*
 
 ---
 
