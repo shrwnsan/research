@@ -1,0 +1,189 @@
+<style>
+/* Update log component — self-contained styles (ported from the reviewed staging design). */
+.update-log {
+  --ul-accent: #268bd2;
+  --ul-rule: #e5e5e5;
+  --ul-muted: #9a9a9a;
+  --ul-panel: #fafafa;
+  --ul-target: #f2f8fd;
+  margin-top: 2.5rem;
+  scroll-margin-top: 1rem;
+}
+.update-log-head {
+  border-top: 1px solid var(--ul-rule);
+  padding-top: 1rem;
+}
+.update-log-title {
+  margin: 0;
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ul-muted);
+}
+.update-log-title .update-count {
+  display: inline-block;
+  font-size: .7rem;
+  color: var(--ul-accent);
+  border: 1px solid var(--ul-accent);
+  border-radius: 999px;
+  padding: .05em .55em;
+  margin-left: .4em;
+  vertical-align: 1px;
+}
+.update-log-sub {
+  margin: .3rem 0 0;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: .7rem;
+  color: var(--ul-muted);
+}
+.update-log-list {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+.update-entry {
+  position: relative;
+  border-left: 2px solid var(--ul-rule);
+  padding: 0 0 1.75rem 1.1rem;
+  scroll-margin-top: 1rem;
+}
+.update-log-list li:last-child .update-entry {
+  padding-bottom: .25rem;
+}
+.update-entry::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: .3rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ul-accent);
+  box-shadow: 0 0 0 3px #fff;
+}
+.update-entry:target {
+  background: var(--ul-target);
+  border-radius: 6px;
+}
+.update-entry:target::before {
+  box-shadow: 0 0 0 3px var(--ul-target);
+}
+.update-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ul-muted);
+}
+.update-type {
+  color: var(--ul-accent);
+  border: 1px solid var(--ul-accent);
+  border-radius: 3px;
+  padding: .12em .5em;
+  letter-spacing: .08em;
+}
+.update-body h3 {
+  margin: .45rem 0 .4rem;
+  font-size: 1rem;
+}
+.update-body h3 a {
+  color: inherit;
+}
+.update-body h3 a:hover {
+  color: var(--ul-accent);
+}
+.update-body > p {
+  margin: 0 0 .85rem;
+  font-size: .9rem;
+}
+.update-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: .6rem 1.4rem;
+  margin: .6rem 0 .9rem;
+  padding: .7rem .9rem;
+  background: var(--ul-panel);
+  border: 1px solid var(--ul-rule);
+  border-radius: 6px;
+}
+.update-facts dt {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ul-muted);
+}
+.update-facts dd {
+  margin: .1rem 0 0;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: .8rem;
+  color: #313131;
+}
+.update-facts > .fact-extra {
+  grid-column: 1 / -1;
+  margin-top: .2rem;
+  padding-top: .6rem;
+  border-top: 1px solid var(--ul-rule);
+}
+.update-chip {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .25rem;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #313131;
+  background: var(--ul-panel, #fafafa);
+  border: 1px solid var(--ul-rule, #e5e5e5);
+  border-radius: 999px;
+  padding: .4em .9em;
+  line-height: 1.4;
+}
+.update-chip::before {
+  content: "";
+  flex-shrink: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2e7d32;
+}
+.update-chip:hover {
+  border-color: #268bd2;
+  color: #268bd2;
+  text-decoration: none;
+}
+</style>
+<section class="update-log" id="updates" aria-labelledby="updates-title">
+  <header class="update-log-head">
+    <h2 class="update-log-title" id="updates-title">Update log <span class="update-count">{{ site.data.updates.entries | size }}</span></h2>
+    <p class="update-log-sub">Dated re-runs and corrections to the figures above, newest first. Each entry is permanently linkable.</p>
+  </header>
+  <ol class="update-log-list">
+    {%- for update in site.data.updates.entries %}
+    <li>
+      <article class="update-entry" id="update-{{ update.id }}">
+        <div class="update-meta">
+          <time datetime="{{ update.date }}">{{ update.date_display }}</time>
+          <span class="update-type">{{ update.type }}</span>
+        </div>
+        <div class="update-body">
+          <h3><a href="#update-{{ update.id }}">{{ update.title }}</a></h3>
+          <dl class="update-facts">
+            {%- for fact in update.facts %}
+            <div{% if fact.extra %} class="fact-extra"{% endif %}><dt>{{ fact.label }}</dt><dd>{{ fact.value }}</dd></div>
+            {%- endfor %}
+          </dl>
+          <p>{{ update.body }}</p>
+        </div>
+      </article>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
